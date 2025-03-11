@@ -21,7 +21,7 @@ Keep checking back for the latest tools and updates. We're committed to enhancin
 ### Share Your Feedback:
 Got ideas or requests? We'd love to hear from you! Your input is crucial in shaping this platform to serve you better.
 """)
-st.write("⬅️ Click "Message Board" menu on the left to leave your message")
+st.write(" ⬅️ Click "Message Board" menu on the left to leave your message")
 
 
 # Display the application's image or logo if available
