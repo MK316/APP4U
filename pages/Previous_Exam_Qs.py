@@ -16,7 +16,7 @@ with tab1:
 
     + **Step 2 Choose an Item from the Selected:** Following a successful search, users can select a year to view the exam question in detail, including an image and related keywords.
 
-    This streamlined tool supports teachers and students preparing for certification exams in phonetics and phonology, continually updating to enhance its functionality and user experience.
+    This tool supports teachers and students preparing for certification exams in phonetics and phonology, continually updating to enhance its functionality and user experience.
     """)
 with tab2:
     # Load the DataFrame
