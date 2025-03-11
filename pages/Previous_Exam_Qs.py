@@ -33,7 +33,7 @@ with tab2:
 
     # Streamlit layout for search
     st.markdown('#### Teacher Certificate Exam Searching Engine')
-    st.subheader('❄️ Start Searching')
+    st.subheader('❄️ [2] Start Searching')
 
     # Form for input and search
     with st.form(key='search_form'):
@@ -56,8 +56,9 @@ with tab2:
             st.success("Search completed successfully.")
 
     # Select box to choose year from results
+    st.subheader('❄️ [2] Select an item:')
     if 'results' in st.session_state:
-        selected_year = st.selectbox("Select a year from the results", st.session_state['results'], index=0, key='selected_year')
+        selected_year = st.selectbox("[2] Select a year from the results", st.session_state['results'], index=0, key='selected_year')
 
     # Button to display exam question
     if st.button('Show me the exam question') and 'selected_year' in st.session_state:
