@@ -83,7 +83,7 @@ with tab2:
     # Select box to choose year from results
     st.subheader('❄️ [2] Choose an item from the selected:')
     if 'results' in st.session_state:
-        selected_year = st.selectbox("[2] Select a year from the results", st.session_state['results'], index=0, key='selected_year')
+        selected_year = st.selectbox("Select a year from the results", st.session_state['results'], index=0, key='selected_year')
 
     # Button to display exam question
     if st.button('🍒 Show me the exam question') and 'selected_year' in st.session_state:
