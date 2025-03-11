@@ -17,13 +17,13 @@ App4U is dedicated to supporting prospective English teachers by providing tailo
 - **Exam Preparation Resources:** Get ready for your Teacher Certification exams with targeted practice and study aids.
 
 #### 🍏 Continuous Updates:
-This web blog is continuously updated to reflect your requests and ideas. We value your feedback and encourage you to share your thoughts and needs, helping us to tailor the resources to better suit your preparation journey.
+This web blog is continuously updated to reflect your requests and ideas. I value your feedback and encourage you to share your thoughts and needs, helping us to tailor the resources to better suit your preparation journey.
 
 #### 🍏 Stay Tuned:
-Keep checking back for the latest tools and updates. We're committed to enhancing your learning experience and helping you succeed in your teaching career!
+Keep checking back for the latest tools and updates. I'm committed to enhancing your learning experience and helping you succeed in your teaching career!
 
 ### 🍏 Share Your Feedback:
-Got ideas or requests? We'd love to hear from you! Your input is crucial in shaping this platform to serve you better.
+Got ideas or requests? Your input is valued in shaping this platform to help you better.
 """)
 st.info(' ⬅️ Click "Message Board" menu on the left to leave your message')
 
