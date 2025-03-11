@@ -14,37 +14,46 @@ with tab2:
 
     # Function to search years based on the selected mode
     def search_years(search_mode, query):
-        if search_mode == "Search questions by YEAR":
+        if search_mode == "YEAR":
             matches = df[df['YEAR'].str.startswith(query.strip()[:4])]
-        elif search_mode == "Search questions by Keywords":
+        elif search_mode == "Keywords":
             keyword_list = [keyword.strip().lower() for keyword in query.split(',')]
             matches = df[df['KEYWORDS'].str.lower().apply(lambda x: any(keyword in x for keyword in keyword_list))]
-        elif search_mode == "Search questions by Words":
+        elif search_mode == "Words":
             word_list = [word.strip().lower() for word in query.split(',')]
             matches = df[df['TEXT'].str.lower().apply(lambda x: any(word in x for word in word_list))]
         else:
-            st.write("Please select a valid search mode.")
+            st.error("Please select a valid search mode.")
             return []
-        
+
         if matches.empty:
-            st.write("No results found for your query.")
+            st.error("No results found for your query.")
             return []
         return matches['YEAR'].tolist()
 
     # Streamlit layout for search
     st.markdown('#### Teacher Certificate Exam Searching Engine')
-    st.subheader('❄️ [1] Search Data')
+    st.subheader('❄️ Start Searching')
 
-    search_mode = st.radio("Search Mode", ["Search questions by YEAR", "Search questions by Keywords", "Search questions by Words"])
-    query = st.text_input("Search Query: e.g., 2024 (by YEAR) or tapping (by Keywords or Words)", "")
-    search_button = st.button('Click to Search')
+    # Form for input and search
+    with st.form(key='search_form'):
+        col1, col2 = st.columns([1, 3])
+
+        with col1:
+            st.write("Search mode by:")  # Label
+
+        with col2:
+            search_mode = st.radio("", ["YEAR", "Keywords", "Words"], horizontal=True)
+
+        query = st.text_input("Search Query: e.g., 2024 (by YEAR) or tapping (by Keywords or Words)", "")
+        search_button = st.form_submit_button('Click to Search')
 
     if search_button:
         results = search_years(search_mode, query)
         if results:
             st.session_state['results'] = results
             st.session_state['selected_year'] = results[0]  # Default to first result
-            st.write("Search completed successfully.")
+            st.success("Search completed successfully.")
 
     # Select box to choose year from results
     if 'results' in st.session_state:
@@ -58,6 +67,6 @@ with tab2:
             image_url = f'https://huggingface.co/spaces/MK-316/TCE/raw/main/TExams/{image_filename}'
             keywords = match.iloc[0]['TEXT']
             st.markdown(f"**🌷 Keywords:** 🔑 {keywords}")
-            st.image(image_url, caption=f'Exam Image for {st.session_state['selected_year']}', width=800)
+            st.image(image_url, caption=f'Exam Image for {st.session_state["selected_year"]}', width=800)
         else:
-            st.write("No keywords or image found for this year.")
+            st.error("No keywords or image found for this year.")
