@@ -16,7 +16,7 @@ with tab1:
     st.caption("This application is designed to help users efficiently search and review past exam questions.")
     
     st.markdown("""
-    #### Here's How to Use:
+    #### ❄️ Here's How to Use:
     <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div>
     Users can search exam questions by <b>year, keywords, or text content (words containing...)</b>. After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
