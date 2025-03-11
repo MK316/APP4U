@@ -18,7 +18,7 @@ with tab1:
     st.markdown("""
     #### Here's How to use:
     <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div> 
-    Users can search exam questions **by year, keywords,** or **text content (words containing...).** After specifying the search criteria,
+    Users can search exam questions by <b>year, keywords, or text content (words containing...)</b>. After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
 
     <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
