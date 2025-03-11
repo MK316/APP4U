@@ -7,7 +7,7 @@ tab1, tab2 = st.tabs(["🍎 Overview", "❄️ TCE app"])
 with tab1:
     st.markdown("#### Teacher Certificate Exam questions: Phonetics & Phonology")
 
-    st.write("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 ~ upto date (2025).")
+    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 ~ upto date (2025).")
 
     st.markdown("""
     The "**TCE (Teacher Certificate Exam Searching Engine) applicatioin** is designed to help users efficiently search and review past exam questions. It offers two main features:
