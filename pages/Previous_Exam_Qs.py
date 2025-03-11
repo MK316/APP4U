@@ -12,7 +12,7 @@ with tab1:
     st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date (2025).")
 
     st.markdown("""
-    <div style="color: rgb(255, 0, 0);">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
+    <div style="color: #0066CC;">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
     is designed to help users efficiently search and review past exam questions. It offers two main features:
 
     <div style="color: #0066CC;"><b>+ Step 1 Start Searching:</b></div> 
