@@ -13,17 +13,20 @@ with tab1:
 
 
 
-    st.caption("This application is designed to help users efficiently search and review past exam questions. It offers two main features:")
+    st.caption("This application is designed to help users efficiently search and review past exam questions.")
+    
     st.markdown("""
+    #### Here's How to use:
     <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div> 
-    Users can search exam questions by year, keywords, or text content. After specifying the search criteria,
+    Users can search exam questions **by year, keywords,** or **text content (words containing...).** After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
 
     <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
     Following a successful search, users can select a year to view the exam question in detail,
     including an image and related keywords.
 
-
+    """)
+    st.markdown("""
     <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
     continually updating to enhance its functionality and user experience.</div>
     """, unsafe_allow_html=True)
