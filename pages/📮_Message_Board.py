@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 def main():
-    st.caption("Feel free to leave any feedback, suggestions, or messages about the application on this page. I'll make sure to look into them as soon as I can!")
+    st.caption("💙 Greetings! Feel free to leave any feedback, suggestions, or messages about the application on this page. I'll make sure to look into them as soon as I can! 😍")
 
     # Padlet embed URL (you need to replace this with your actual Padlet embed URL)
     padlet_url = "https://padlet.com/mirankim316/apps4u"
