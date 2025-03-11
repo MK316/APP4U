@@ -33,7 +33,7 @@ with tab2:
 
     # Streamlit layout for search
     st.markdown('#### Teacher Certificate Exam Searching Engine')
-    st.subheader('❄️ [2] Start Searching')
+    st.subheader('❄️ [1] Start Searching')
 
     # Form for input and search
     with st.form(key='search_form'):
