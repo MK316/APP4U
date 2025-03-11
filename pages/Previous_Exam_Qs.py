@@ -58,7 +58,7 @@ with tab2:
         return matches['YEAR'].tolist()
 
     # Streamlit layout for search
-    st.markdown('#### Teacher Certificate Exam Searching Engine')
+
     st.subheader('❄️ [1] Start Searching')
 
     with st.form(key='search_form'):
