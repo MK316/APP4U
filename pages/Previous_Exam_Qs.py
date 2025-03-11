@@ -61,7 +61,7 @@ with tab2:
         selected_year = st.selectbox("[2] Select a year from the results", st.session_state['results'], index=0, key='selected_year')
 
     # Button to display exam question
-    if st.button('Show me the exam question') and 'selected_year' in st.session_state:
+    if st.button('🍒 Show me the exam question') and 'selected_year' in st.session_state:
         match = df[df['YEAR'] == st.session_state['selected_year']]
         if not match.empty:
             image_filename = match.iloc[0]['Filename']
