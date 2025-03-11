@@ -23,7 +23,7 @@ with tab1:
 
     <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
     Following a successful search, users can select a year to view the exam question in detail,
-    including an image and related keywords.
+    including an image and related keywords.</div>
 
     """)
     st.markdown("""
