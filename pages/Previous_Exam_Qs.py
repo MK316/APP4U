@@ -71,7 +71,7 @@ with tab2:
             search_mode = st.radio("", ["YEAR", "Keywords", "Words containing"], horizontal=True)
 
         query = st.text_input("Search Query: e.g., 2024 (by YEAR), 'tapping' (by Keywords) or 'distribution' (Words containing)", "")
-        search_button = st.form_submit_button('Click to Search')
+        search_button = st.form_submit_button('🍒 Click to Search')
 
     if search_button:
         results = search_years(search_mode, query)
