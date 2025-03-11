@@ -11,10 +11,9 @@ with tab1:
 
     st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date (2025).")
 
-    st.markdown("""
-    <div style="color: #0066CC;">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
-    is designed to help users efficiently search and review past exam questions. It offers two main features:
 
+    st.markdown("""
+    ##### This application is designed to help users efficiently search and review past exam questions. It offers two main features:
     <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div> 
     Users can search exam questions by year, keywords, or text content. After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
@@ -22,6 +21,7 @@ with tab1:
     <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
     Following a successful search, users can select a year to view the exam question in detail,
     including an image and related keywords.
+
 
     <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
     continually updating to enhance its functionality and user experience.</div>
