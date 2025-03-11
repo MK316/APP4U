@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Define tab navigation
-tab1, tab2 = st.tabs(["🍎 Overview", "❄️ TCE Searching Engine"])
+tab1, tab2 = st.tabs(["🍎 Overview", "🌀 TCE Searching Engine"])
 
 
 with tab1:
