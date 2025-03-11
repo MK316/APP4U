@@ -14,14 +14,14 @@ with tab2:
 
     # Function to search years based on the selected mode
     def search_years(search_mode, query):
+        query = query.strip().lower()
         if search_mode == "YEAR":
-            matches = df[df['YEAR'].str.startswith(query.strip()[:4])]
+            matches = df[df['YEAR'].str.startswith(query[:4])]
         elif search_mode == "Keywords":
-            keyword_list = [keyword.strip().lower() for keyword in query.split(',')]
+            keyword_list = query.split(',')
             matches = df[df['KEYWORDS'].str.lower().apply(lambda x: any(keyword in x for keyword in keyword_list))]
-        elif search_mode == "Words":
-            word_list = [word.strip().lower() for word in query.split(',')]
-            matches = df[df['TEXT'].str.lower().apply(lambda x: any(word in x for word in word_list))]
+        elif search_mode == "Words containing":
+            matches = df[df['TEXT'].str.lower().str.contains(query)]
         else:
             st.error("Please select a valid search mode.")
             return []
@@ -35,7 +35,6 @@ with tab2:
     st.markdown('#### Teacher Certificate Exam Searching Engine')
     st.subheader('❄️ [1] Start Searching')
 
-    # Form for input and search
     with st.form(key='search_form'):
         col1, col2 = st.columns([1, 3])
 
