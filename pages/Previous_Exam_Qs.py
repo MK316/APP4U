@@ -30,7 +30,7 @@ with tab2:
         return matches['YEAR'].tolist()
     
     # Streamlit layout
-    st.title('Teacher Certificate Exam Searching Engine')
+    st.markdown('#### Teacher Certificate Exam Searching Engine')
     st.subheader('❄️ [1] Search Data')
     
     search_mode = st.radio("Search Mode", ["Search questions by YEAR", "Search questions by Keywords", "Search questions by Words"])
