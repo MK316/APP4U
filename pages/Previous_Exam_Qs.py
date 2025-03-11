@@ -55,7 +55,7 @@ with tab2:
             st.success("Search completed successfully.")
 
     # Select box to choose year from results
-    st.subheader('❄️ [2] Select an item:')
+    st.subheader('❄️ [2] Choose an item from the selected:')
     if 'results' in st.session_state:
         selected_year = st.selectbox("[2] Select a year from the results", st.session_state['results'], index=0, key='selected_year')
 
