@@ -15,15 +15,15 @@ with tab1:
     <div style="color: #0066CC;">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
     is designed to help users efficiently search and review past exam questions. It offers two main features:
 
-    <div style="color: #0066CC;"><b>+ Step 1 Start Searching:</b></div> 
+    <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div> 
     Users can search exam questions by year, keywords, or text content. After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
 
-    <div style="color: rgb(0, 0, 255);"><b>+ Step 2 Choose an Item from the Selected:</b></div>
+    <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
     Following a successful search, users can select a year to view the exam question in detail,
     including an image and related keywords.
 
-    <div style="color: rgb(128, 0, 128);">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
+    <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
     continually updating to enhance its functionality and user experience.</div>
     """, unsafe_allow_html=True)
 
