@@ -25,7 +25,8 @@ with tab1:
     Following a successful search, users can select a year to view the exam question in detail,
     including an image and related keywords.
     """, unsafe_allow_html=True)
-    
+
+    st.markdown("---")
     st.markdown("""
     <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
     continually updating to enhance its functionality and user experience.</div>
