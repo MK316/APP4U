@@ -4,21 +4,34 @@ import pandas as pd
 # Define tab navigation
 tab1, tab2 = st.tabs(["🍎 Overview", "❄️ TCE app"])
 
+import streamlit as st
+
+# Define tab navigation
+tab1, tab2 = st.tabs(["Overview", "TCE app"])
+
 with tab1:
     st.markdown("#### Phonetics & Phonology")
     st.markdown("##### TCE (Teacher Certificate Exam) question searching engine")
 
-    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 ~ upto date (2025).")
+    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date (2025).")
 
     st.markdown("""
-    The "**TCE (Teacher Certificate Exam Searching Engine) applicatioin** is designed to help users efficiently search and review past exam questions. It offers two main features:
+    <div style="color: rgb(255, 0, 0);">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
+    is designed to help users efficiently search and review past exam questions. It offers two main features:
 
-    + **Step 1 Start Searching:** Users can search exam questions by year, keywords, or text content. After specifying the search criteria, the application displays the relevant years where these questions appeared.
+    <div style="color: rgb(0, 128, 0);"><b>+ Step 1 Start Searching:</b></div> 
+    Users can search exam questions by year, keywords, or text content. After specifying the search criteria,
+    the application displays the relevant years where these questions appeared.
 
-    + **Step 2 Choose an Item from the Selected:** Following a successful search, users can select a year to view the exam question in detail, including an image and related keywords.
+    <div style="color: rgb(0, 0, 255);"><b>+ Step 2 Choose an Item from the Selected:</b></div>
+    Following a successful search, users can select a year to view the exam question in detail,
+    including an image and related keywords.
 
-    This tool supports teachers and students preparing for certification exams in phonetics and phonology, continually updating to enhance its functionality and user experience.
-    """)
+    <div style="color: rgb(128, 0, 128);">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
+    continually updating to enhance its functionality and user experience.</div>
+    """, unsafe_allow_html=True)
+
+
 with tab2:
     # Load the DataFrame
     url = "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_new20241125.csv"
