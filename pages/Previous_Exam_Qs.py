@@ -4,10 +4,6 @@ import pandas as pd
 # Define tab navigation
 tab1, tab2 = st.tabs(["🍎 Overview", "❄️ TCE app"])
 
-import streamlit as st
-
-# Define tab navigation
-tab1, tab2 = st.tabs(["Overview", "TCE app"])
 
 with tab1:
     st.markdown("#### Phonetics & Phonology")
