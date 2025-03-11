@@ -11,7 +11,7 @@ tab1, tab2 = st.tabs(["Overview", "TCE app"])
 
 with tab1:
     st.markdown("#### Phonetics & Phonology")
-    st.markdown("##### TCE (Teacher Certificate Exam) question searching engine")
+    st.markdown("##### TCE (Teacher Certificate Exam) Question Searching Engine")
 
     st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date (2025).")
 
@@ -19,7 +19,7 @@ with tab1:
     <div style="color: rgb(255, 0, 0);">The "<b>TCE (Teacher Certificate Exam) Searching Engine</b>" application</div>
     is designed to help users efficiently search and review past exam questions. It offers two main features:
 
-    <div style="color: rgb(0, 128, 0);"><b>+ Step 1 Start Searching:</b></div> 
+    <div style="color: #0066CC;"><b>+ Step 1 Start Searching:</b></div> 
     Users can search exam questions by year, keywords, or text content. After specifying the search criteria,
     the application displays the relevant years where these questions appeared.
 
