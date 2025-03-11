@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Define tab navigation
-tab1, tab2 = st.tabs(["Overview", "TCE app"])
+tab1, tab2 = st.tabs(["🍎 Overview", "❄️ TCE app"])
 
 with tab1:
     st.caption("Teacher Certificate Exam questions: Phonetics & Phonology")
