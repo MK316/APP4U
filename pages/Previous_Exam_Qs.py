@@ -43,9 +43,9 @@ with tab2:
             st.write("Search mode by:")  # Label
 
         with col2:
-            search_mode = st.radio("", ["YEAR", "Keywords", "Words"], horizontal=True)
+            search_mode = st.radio("", ["YEAR", "Keywords", "Words containing"], horizontal=True)
 
-        query = st.text_input("Search Query: e.g., 2024 (by YEAR) or tapping (by Keywords or Words)", "")
+        query = st.text_input("Search Query: e.g., 2024 (by YEAR), 'tapping' (by Keywords) or 'distribution' (Words containing)", "")
         search_button = st.form_submit_button('Click to Search')
 
     if search_button:
