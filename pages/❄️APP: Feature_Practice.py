@@ -35,7 +35,7 @@ with tab1:
       
     def create_feature_matrix(ipa_features):
         # Convert the dictionary to a DataFrame
-        df = pd.DataFrame(ipa_features).T  # Transpose to make symbols columns and features rows
+        df = pd.DataFrame(ipa_features)  # Transpose to make symbols columns and features rows
         return df
     
     def app():
