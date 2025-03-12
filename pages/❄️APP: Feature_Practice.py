@@ -206,7 +206,7 @@ with tab4:
 
     # Step 4: Check answer and give feedback
     if st.button("Check Answer"):
-        # Clean the user input and correct answers for consistent comparison
+        # Clean user input and correct answers for consistent comparison
         cleaned_user_answer = user_answer.strip().replace(" ", "").lower()
         cleaned_correct_answers = [ans.strip().replace(" ", "").lower() for ans in correct_answers]
     
@@ -214,10 +214,12 @@ with tab4:
             st.session_state['score'] += 1
             st.success(f"✅ Correct! The shared feature is **{user_answer}**.")
         else:
-            formatted_answers = ', '.join(f'[{ans}]' for ans in correct_answers)  # Fix formatting here
+            # Fix: format correct answers properly in brackets
+            formatted_answers = ', '.join(f'[{ans}]' for ans in correct_answers)
             st.error(f"❌ Incorrect. The correct answer(s) are: {formatted_answers}")
     
         st.session_state['answered'] = True
+
 
 
 
