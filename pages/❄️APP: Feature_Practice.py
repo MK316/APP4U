@@ -156,12 +156,12 @@ def generate_questions(num_sets):
             sound_group = sounds
         questions.append((sound_group, feature))
     return questions
-
+    
 with tab4:
     with st.expander("**Instructions**"):
         st.info("""
         **Consider the following features only:**  
-        [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
+        [+voice], [-voice], [+anterior], [+coronal], [+delayed release],  
         [+sonorant], [+strident], [+nasal], [+continuant]  
         Write answers in square brackets, like `[+voice]` or `[+nasal]`.
         """)
@@ -200,16 +200,22 @@ with tab4:
     
         # Step 4: Check answer and give feedback
         if st.button("Check Answer"):
-            # Remove spaces and ensure both answers are in square brackets
-            cleaned_user_answer = user_answer.replace(" ", "").strip()
-            cleaned_correct_answer = correct_answer.replace(" ", "").strip()
-            
-            if cleaned_user_answer == cleaned_correct_answer:
+            # Clean user answer and correct answer formatting
+            cleaned_user_answer = user_answer.strip().replace(" ", "")
+            cleaned_correct_answers = [ans.strip().replace(" ", "") for ans in correct_answer.split(",")]
+    
+            # Ensure all correct answers have square brackets
+            cleaned_correct_answers = [
+                f"[{ans}]" if not ans.startswith("[") else ans for ans in cleaned_correct_answers
+            ]
+    
+            # Allow space variation and ensure both answers are in square brackets
+            if cleaned_user_answer in cleaned_correct_answers:
                 st.session_state['score'] += 1
-                st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
+                st.success(f"✅ Correct! The shared feature is **{cleaned_user_answer}**.")
             else:
-                st.error(f"❌ Incorrect. The correct answer is **{correct_answer}**.")
-            
+                st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(cleaned_correct_answers)}")
+    
             st.session_state['answered'] = True
     
         # Step 5: Next question button
