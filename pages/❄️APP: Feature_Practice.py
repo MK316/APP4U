@@ -113,15 +113,16 @@ with tab3:
     def app():
         st.markdown('#### 🐣 Vowel Feature Matrix')
         st.write('This matrix displays the distinctive features for English vowels in IPA.')
-        st.info("Note 1: The vowel [ʌ] is phonologically marked as [+back], even though it is phonetically pronounced more centrally. This distinction may not be crucial for the TCE exam.")
-        
-        st.info("Note 2: The vowel [ɔ] is marked as [+tense] here. You may encounter different descriptions in various textbooks.")
 
         # Generate the feature matrix DataFrame
         feature_matrix = create_feature_matrix(vowel_features)
     
         # Display the feature matrix
         st.dataframe(feature_matrix, height=260, use_container_width=True)
-    
+
+        st.info("Note 1: The vowel [ʌ] is phonologically marked as [+back], even though it is phonetically pronounced more centrally. This distinction may not be crucial for the TCE exam.")
+        
+        st.info("Note 2: The vowel [ɔ] is marked as [+tense] here. You may encounter different descriptions in various textbooks.")
+
     if __name__ == "__main__":
         app()
