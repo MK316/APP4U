@@ -144,12 +144,18 @@ grouped_features = {
 }
 
 with tab4:
-    st.info("Consider the following features only: [+/- voice, +anterior, +/-coronal, +delayed release, +sonorant, +strident, +nasal, +/-continuant]")
+    with st.expander("**Instructions**"):
+        st.info("""
+        **Consider the following features only:**  
+        [+/- voice], [+/- anterior], [+/- coronal], [+/- delayed release],  
+        [+/- sonorant], [+/- strident], [+/- nasal], [+/- continuant]  
+        Write answers in square brackets, like `[+voice]` or `[-nasal]`.
+        """)
+    
     # Function to generate question sets
     def generate_questions(num_sets):
         questions = []
         for _ in range(num_sets):
-            # Randomly select a feature and its sounds
             feature, sounds = random.choice(list(grouped_features.items()))
             if len(sounds) > 5:
                 sound_group = random.sample(sounds, 5)
@@ -192,6 +198,7 @@ with tab4:
     
         # Step 4: Check answer and give feedback
         if st.button("Check Answer"):
+            # Allow space variation: [+voice] and [ +voice] should be treated the same
             if user_answer.replace(" ", "") == correct_answer.replace(" ", ""):
                 st.session_state['score'] += 1
                 st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
@@ -216,3 +223,4 @@ with tab4:
                     st.session_state['score'] = 0
                     st.session_state['answered'] = False
                     st.rerun()
+
