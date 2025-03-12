@@ -39,7 +39,7 @@ with tab1:
         return df
     
     def app():
-        st.markdown('#### Consonant Feature Matrix')
+        st.markdown('#### 🐣 Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
     
         # Generate the feature matrix DataFrame
