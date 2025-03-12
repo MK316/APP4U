@@ -72,7 +72,7 @@ with tab2:
     with col1:
         st.image("images/button01.png", width=100)
         if st.button('App 1: Distinctive features', key='3'):
-            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Phonology, Sound grouping from distinctive features")
+            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Basic level - Feature marking for individual segments ")
             st.markdown("Updated on: 2024.10.15")
     with col2:
         st.image("images/button01.png", width=100)
