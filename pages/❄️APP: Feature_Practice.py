@@ -46,7 +46,7 @@ with tab1:
         feature_matrix = create_feature_matrix(ipa_features)
     
         # Display the feature matrix
-        st.dataframe(feature_matrix)
+        st.dataframe(feature_matrix, height=600)
     
     if __name__ == "__main__":
         app()
