@@ -133,22 +133,18 @@ grouped_features = {
     '+voice': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
     '-voice': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
     '+anterior': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
-    '-anterior': ['k', 'g', 'tʃ', 'dʒ', 'ʃ', 'ʒ', 'h', 'ŋ', 'j', 'w'],
     '+coronal': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
     '-coronal': ['p', 'b', 'k', 'g', 'f', 'v', 'h', 'm', 'ŋ', 'j', 'w'],
     '+delayed release': ['tʃ', 'dʒ'],
-    '-delayed release': ['p', 'b', 't', 'd', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
     '+sonorant': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '-sonorant': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h'],
     '+strident': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
-    '-strident': ['p', 'b', 't', 'd', 'k', 'g', 'θ', 'ð', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
     '+nasal': ['m', 'n', 'ŋ'],
-    '-nasal': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
     '+continuant': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
     '-continuant': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'm', 'n', 'ŋ']
 }
 
 with tab4:
+    st.info("Consider the following features only: [+/- voice, +anterior, +/-coronal, +delayed release, +sonorant, +strident, +nasal, +/-continuant]")
     # Function to generate question sets
     def generate_questions(num_sets):
         questions = []
