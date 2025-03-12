@@ -32,20 +32,24 @@ ipa_features = {
     'w': {'syllabic': '-', 'consonantal': '-', 'sonorant': '+', 'coronal': '-', 'anterior': '-', 'continuant': '+', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'}
 }
 
-feature_matrix = pd.DataFrame(ipa_features)
-
 with tab1:
     def create_feature_matrix(ipa_features):
-        return pd.DataFrame(ipa_features)
-
-    def display_feature_matrix_with_aggrid(feature_matrix):
+        # Convert the dictionary to a DataFrame
+        df = pd.DataFrame(ipa_features)  # Transpose to make symbols columns and features rows
+        return df
+    
+    def app():
         st.title('IPA Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
-        
-        # Use AgGrid to display the DataFrame with more interactivity
-        AgGrid(feature_matrix)
     
-    display_feature_matrix_with_aggrid(feature_matrix)
+        # Generate the feature matrix DataFrame
+        feature_matrix = create_feature_matrix(ipa_features)
+    
+        # Display the feature matrix
+        st.dataframe(feature_matrix)
+    
+    if __name__ == "__main__":
+        app()
 
 with tab2:
     st.markdown('### 🐾 Distinctive Feature Practice Apps')
