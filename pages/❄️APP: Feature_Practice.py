@@ -208,9 +208,12 @@ with tab4:
             st.session_state['score'] += 1
             st.success(f"✅ Correct! The shared feature(s) are: {', '.join(f'**{ans}**' for ans in correct_answers)}")
         else:
-            st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(f'**{ans}**' for ans in correct_answers)}")
+            # ✅ Fixing the string handling here!
+            formatted_answers = ', '.join(f'[{ans}]' for ans in correct_answers)
+            st.error(f"❌ Incorrect. The correct answer(s) are: {formatted_answers}")
     
         st.session_state['answered'] = True
+
     
     # Step 5: Next question button
     if st.session_state['answered']:
