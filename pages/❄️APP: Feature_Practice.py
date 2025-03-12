@@ -180,7 +180,7 @@ with tab4:
             st.session_state['current_question'] = 0
             st.session_state['score'] = 0
             st.session_state['answered'] = False
-            st.experimental_rerun()
+            st.rerun()
     
     # Step 2: Display the question
     if st.session_state['questions']:
