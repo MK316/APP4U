@@ -32,59 +32,57 @@ ipa_features = {
 }
 
 with tab1:
-      
     def create_feature_matrix(ipa_features):
-        # Convert the dictionary to a DataFrame
-        df = pd.DataFrame(ipa_features)  # Transpose to make symbols columns and features rows
+        df = pd.DataFrame(ipa_features)
         return df
-    
-    def app():
+
+    def style_features(value):
+        if value == '+':
+            return f'<span style="color:green; font-size:20px;">{value}</span>'
+        elif value == '-':
+            return f'<span style="color:red; font-size:20px;">{value}</span>'
+        return value
+
+    def display_feature_matrix(feature_matrix):
         st.title('IPA Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
-    
-        # Generate the feature matrix DataFrame
-        feature_matrix = create_feature_matrix(ipa_features)
-    
-        # Display the feature matrix
-        st.dataframe(feature_matrix)
-    
-    if __name__ == "__main__":
-        app()
+
+        # Apply HTML styling to DataFrame
+        styled_html = feature_matrix.applymap(style_features).to_html(escape=False)
+        st.markdown(styled_html, unsafe_allow_html=True)
+
+    # Generate and display the feature matrix
+    feature_matrix = create_feature_matrix(ipa_features)
+    display_feature_matrix(feature_matrix)
 
 with tab2:
-    def phonetics_apps_page():
-        st.markdown('### 🐾 Distinctive feature Practice Apps')
-        st.write('Applications to train yourself with distinctive features in phonology')
-    
-        # Describing your apps briefly
-        st.caption("""
-        Here is a selection of applications designed to enhance feature matrix learning through interactive and innovative tools.
-        """)
-    
-        # First row with three columns
-        col1, col2, col3 = st.columns(3)  # Define columns for the first row
-    
-        with col1:
-            st.image("images/button01.png", width=100)
-            if st.button('App 1: Distinctive features', key='3'):
-                st.markdown("🌀[App link](https://mk-316-featureapp01.hf.space/): Phonology, Sound grouping from distinctive features", unsafe_allow_html=True)
-                st.markdown("2024.10.15")
-        with col2:
-            st.image("images/button01.png", width=100)
-            if st.button('App 2: Feature Quiz 1', key='5'):
-                st.markdown("🌀[App link](https://mk-316-feature-practice.hf.space/): Phonology, Distinctive feature quiz (click)", unsafe_allow_html=True)
-                st.markdown("2024.10.14")
-        with col3:
-            st.image("images/button01.png", width=100)
-            if st.button('App 3: Feature Quiz 2', key='6'):
-                st.markdown("🌀[App link](https://feature-quiz02.streamlit.app/): Phonology, Distinctive feature quiz (choose)", unsafe_allow_html=True)
-                st.markdown("2024.11.6")   
-        # Add some space before the second row
-        st.write("\n\n")
-    
-    
-    phonetics_apps_page()
-    
+    st.markdown('### 🐾 Distinctive Feature Practice Apps')
+    st.write('Applications to train yourself with distinctive features in phonology')
+
+    # Describing your apps briefly
+    st.caption("""
+    Here is a selection of applications designed to enhance feature matrix learning through interactive and innovative tools.
+    """)
+
+    # First row with three columns
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.image("images/button01.png", width=100)
+        if st.button('App 1: Distinctive features', key='3'):
+            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Phonology, Sound grouping from distinctive features")
+            st.markdown("Updated on: 2024.10.15")
+    with col2:
+        st.image("images/button01.png", width=100)
+        if st.button('App 2: Feature Quiz 1', key='5'):
+            st.markdown("🌀 [App link](https://mk-316-feature-practice.hf.space/): Phonology, Distinctive feature quiz (click)")
+            st.markdown("Updated on: 2024.10.14")
+    with col3:
+        st.image("images/button01.png", width=100)
+        if st.button('App 3: Feature Quiz 2', key='6'):
+            st.markdown("🌀 [App link](https://feature-quiz02.streamlit.app/): Phonology, Distinctive feature quiz (choose)")
+            st.markdown("Updated on: 2024.11.6")
+
     # URL to the raw image on GitHub
     image_url = "https://github.com/MK316/MK-316/raw/main/images/bg2.png"
     # Display the image
