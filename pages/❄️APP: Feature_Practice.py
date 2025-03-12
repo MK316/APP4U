@@ -2,7 +2,7 @@ import streamlit as st
 from st_aggrid import AgGrid
 import pandas as pd
 
-tab1, tab2 = st.tabs(["🌀 Feature matrix","🌀 Practice Applications"])
+tab1, tab2 = st.tabs(["🌀 Feature matrix for consonants","🌀 Practice Applications"])
 
 # IPA features dictionary with full feature names
 ipa_features = {
