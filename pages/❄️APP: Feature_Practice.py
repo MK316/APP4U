@@ -200,8 +200,11 @@ with tab4:
     
         # Step 4: Check answer and give feedback
         if st.button("Check Answer"):
-            # Allow space variation: [+voice] and [ +voice] should be treated the same
-            if user_answer.replace(" ", "") == correct_answer.replace(" ", ""):
+            # Remove spaces and ensure both answers are in square brackets
+            cleaned_user_answer = user_answer.replace(" ", "").strip()
+            cleaned_correct_answer = correct_answer.replace(" ", "").strip()
+            
+            if cleaned_user_answer == cleaned_correct_answer:
                 st.session_state['score'] += 1
                 st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
             else:
@@ -225,4 +228,3 @@ with tab4:
                     st.session_state['score'] = 0
                     st.session_state['answered'] = False
                     st.rerun()
-
