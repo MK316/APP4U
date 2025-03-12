@@ -130,68 +130,61 @@ with tab3:
 
 with tab4:
 
-    # Step 1: Randomly select 3 to 5 sounds
     def get_sounds():
         return random.sample(list(ipa_features.keys()), k=random.randint(3, 5))
     
-    # Step 2: Find common feature among sounds
     def get_common_feature(sounds):
-        features = ipa_features[sounds[0]]
-        common_features = []
-        for feature in features:
-            values = [ipa_features[sound][feature] for sound in sounds]
-            if all(value == values[0] for value in values):
-                common_features.append((feature, values[0]))
+        # Find shared features among selected sounds
+        common_features = {}
+        for feature in ipa_features[sounds[0]].keys():
+            values = {ipa_features[sound][feature] for sound in sounds}
+            if len(values) == 1:
+                common_features[feature] = values.pop()
         return common_features
     
-    # Step 3: Generate multiple-choice options (correct + distractors)
     def generate_options(correct_feature):
-        possible_features = list(ipa_features[next(iter(ipa_features))].keys())
-        options = [correct_feature]
-        while len(options) < 4:
-            distractor = random.choice(possible_features)
-            if distractor not in options:
-                options.append(distractor)
+        options = list(ipa_features['p'].keys())
         random.shuffle(options)
-        return options
+        options = options[:3]  # Take 3 wrong options
+        options.append(correct_feature)  # Add correct feature
+        random.shuffle(options)
+        # Include + or - sign with the features
+        return [f"{ipa_features['p'][opt]}{opt}" for opt in options]
     
-    # Initialize session state
+    # Initialize state
     if 'sounds' not in st.session_state:
         st.session_state['sounds'] = get_sounds()
-        st.session_state['common_features'] = get_common_feature(st.session_state['sounds'])
-        if st.session_state['common_features']:
-            st.session_state['correct_feature'] = st.session_state['common_features'][0][0]
-            st.session_state['options'] = generate_options(st.session_state['correct_feature'])
+        st.session_state['correct_feature'] = get_common_feature(st.session_state['sounds'])
+        st.session_state['answered'] = False
+        st.session_state['feedback'] = None
     
-    # Step 4: Display selected sounds
-    st.markdown("### Identify the Common Feature")
-    st.write(f"Sounds: **{', '.join(st.session_state['sounds'])}**")
+    # Display sounds
+    st.markdown("## Identify the Common Feature")
+    st.markdown(f"**Sounds:** {' '.join([f'**{sound}**' for sound in st.session_state['sounds']])}")
     
-    # Step 5: Display multiple-choice question
-    if st.session_state['common_features']:
-        user_answer = st.radio("Which feature is shared among these sounds?", st.session_state['options'])
+    # Generate correct answer and options
+    correct_feature = next(iter(st.session_state['correct_feature'].items()))
+    correct_answer = f"{correct_feature[1]}{correct_feature[0]}"
+    options = generate_options(correct_feature[0])
     
-        if st.button("Check Answer"):
-            if user_answer == st.session_state['correct_feature']:
-                st.success(f"✅ Correct! The shared feature is **{user_answer}**.")
-            else:
-                st.error(f"❌ Incorrect. The correct answer is **{st.session_state['correct_feature']}**.")
+    # Create the multiple choice
+    selected_option = st.radio("Which feature is shared among these sounds?", options, key="selected_option")
     
-            # Option to generate new question
-            if st.button("Try Again"):
-                st.session_state['sounds'] = get_sounds()
-                st.session_state['common_features'] = get_common_feature(st.session_state['sounds'])
-                if st.session_state['common_features']:
-                    st.session_state['correct_feature'] = st.session_state['common_features'][0][0]
-                    st.session_state['options'] = generate_options(st.session_state['correct_feature'])
-                st.experimental_rerun()
+    # Button to check answer
+    if st.button("Check Answer"):
+        if selected_option == correct_answer:
+            st.session_state['feedback'] = f"✅ **Correct!** The shared feature is **{correct_answer}**."
+        else:
+            st.session_state['feedback'] = f"❌ **Incorrect.** The correct answer is **{correct_answer}**."
     
-    else:
-        st.write("No common feature found. Try again!")
-        if st.button("Generate New Question"):
-            st.session_state['sounds'] = get_sounds()
-            st.session_state['common_features'] = get_common_feature(st.session_state['sounds'])
-            if st.session_state['common_features']:
-                st.session_state['correct_feature'] = st.session_state['common_features'][0][0]
-                st.session_state['options'] = generate_options(st.session_state['correct_feature'])
-            st.experimental_rerun()
+    # Display feedback
+    if st.session_state['feedback']:
+        st.markdown(st.session_state['feedback'])
+    
+    # "Next Question" button to reset the state
+    if st.button("Next Question"):
+        st.session_state['sounds'] = get_sounds()
+        st.session_state['correct_feature'] = get_common_feature(st.session_state['sounds'])
+        st.session_state['answered'] = False
+        st.session_state['feedback'] = None
+        st.rerun()
