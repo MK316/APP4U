@@ -134,70 +134,68 @@ with tab4:
     def get_sounds():
         return random.sample(list(ipa_features.keys()), k=random.randint(3, 5))
     
-    # Function to get shared features among the selected sounds
+    # Function to find a shared feature among the selected sounds
     def get_common_feature(sounds):
         common_features = {}
         for feature in ipa_features[sounds[0]].keys():
             values = {ipa_features[sound][feature] for sound in sounds}
-            if len(values) == 1:  # If all sounds share the same feature value
+            if len(values) == 1:
                 common_features[feature] = values.pop()
         return common_features
     
     # Function to generate answer options
     def generate_options(correct_feature):
-        options = list(ipa_features['p'].keys())
+        all_features = list(ipa_features['p'].keys())
+        wrong_options = random.sample(all_features, 3)  # Take 3 wrong options
+        options = [f"{ipa_features['p'][opt]}{opt}" for opt in wrong_options]
+        correct_answer = f"{ipa_features['p'][correct_feature]}{correct_feature}"
+        options.append(correct_answer)
         random.shuffle(options)
-        options = options[:3]  # Take 3 wrong options
-        options.append(correct_feature)  # Add correct feature
-        random.shuffle(options)
-        # Include + or - sign with the features
-        return [f"{ipa_features['p'][opt]}{opt}" for opt in options]
+        return options
     
-    # Initialize state
+    # Reset state to prepare for a new question
     def reset_state():
         while True:
             st.session_state['sounds'] = get_sounds()
             common_features = get_common_feature(st.session_state['sounds'])
-            if common_features:  # Ensure there’s at least one shared feature
-                st.session_state['correct_feature'] = common_features
+            if common_features:
+                st.session_state['correct_feature'] = next(iter(common_features.items()))
                 st.session_state['answered'] = False
                 st.session_state['feedback'] = None
                 break
     
-    # Initialize session state on first run
+    # Initialize state on first run
     if 'sounds' not in st.session_state:
         reset_state()
     
-    # Display sounds
+    # Display the question
     st.markdown("## Identify the Common Feature")
     st.markdown(f"**Sounds:** {' '.join([f'**{sound}**' for sound in st.session_state['sounds']])}")
     
-    # Ensure correct_feature is available before proceeding
+    # Generate answer options
     if st.session_state['correct_feature']:
-        correct_feature = next(iter(st.session_state['correct_feature'].items()))
+        correct_feature = st.session_state['correct_feature']
         correct_answer = f"{correct_feature[1]}{correct_feature[0]}"
         options = generate_options(correct_feature[0])
     
-        # Create the multiple choice
+        # Multiple choice question
         selected_option = st.radio("Which feature is shared among these sounds?", options, key="selected_option")
     
-        # Button to check answer
-        if st.button("Check Answer"):
+        # ✅ Fix: Separate answer check and reset logic
+        if st.button("Check Answer") and not st.session_state['answered']:
             if selected_option == correct_answer:
                 st.session_state['feedback'] = f"✅ **Correct!** The shared feature is **{correct_answer}**."
             else:
                 st.session_state['feedback'] = f"❌ **Incorrect.** The correct answer is **{correct_answer}**."
+            st.session_state['answered'] = True
     
-        # Display feedback
-        if st.session_state['feedback']:
+        # Display feedback after checking
+        if st.session_state.get('feedback'):
             st.markdown(st.session_state['feedback'])
     
-        # "Next Question" button to reset the state
-        if st.button("Next Question"):
-            reset_state()
-            st.rerun()
-    else:
-        st.error("No common feature found. Generating new question...")
-        reset_state()
-        st.rerun()
+        # ✅ Fix: Only reset state when "Next Question" is clicked
+        if st.session_state['answered']:
+            if st.button("Next Question"):
+                reset_state()
+                st.rerun()
 
