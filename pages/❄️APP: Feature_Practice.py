@@ -33,6 +33,20 @@ ipa_features = {
     'w': {'syllabic': '-', 'consonantal': '-', 'sonorant': '+', 'coronal': '-', 'anterior': '-', 'continuant': '+', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'}
 }
 
+# Grouped features based on previous dictionary
+grouped_features = {
+    '[+voice]': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[-voice]': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
+    '[+anterior]': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
+    '[+coronal]': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
+    '[+delayed release]': ['tʃ', 'dʒ'],
+    '[+sonorant]': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[+strident]': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
+    '[+nasal]': ['m', 'n', 'ŋ'],
+    '[+continuant]': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
+}
+
+
 # Define vowel features
 vowel_features = {
     '[i]': {'[high]': '+', '[low]': '-', '[front]': '+', '[back]': '-', '[rounded]': '-', '[tense]': '+'},
@@ -129,43 +143,24 @@ with tab3:
         app()
 
 
+with st.expander("**Instructions**"):
+    st.info("""
+    **Consider the following features only:**  
+    [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
+    [+sonorant], [+strident], [+nasal], [+continuant]  
+    Write answers in square brackets, like `[+voice]` or `[+nasal]`.
+    """)
 
-# Grouped features based on previous dictionary
-grouped_features = {
-    '[+voice]': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '[-voice]': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
-    '[+anterior]': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
-    '[-anterior]': ['k', 'g', 'tʃ', 'dʒ', 'ʃ', 'ʒ', 'h', 'ŋ', 'j', 'w'],
-    '[+coronal]': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
-    '[-coronal]': ['p', 'b', 'k', 'g', 'f', 'v', 'h', 'm', 'ŋ', 'j', 'w'],
-    '[+delayed release]': ['tʃ', 'dʒ'],
-    '[-delayed release]': ['p', 'b', 't', 'd', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '[+sonorant]': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '[-sonorant]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h'],
-    '[+strident]': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
-    '[-strident]': ['p', 'b', 't', 'd', 'k', 'g', 'θ', 'ð', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '[+nasal]': ['m', 'n', 'ŋ'],
-    '[-nasal]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
-    '[+continuant]': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
-    '[-continuant]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'm', 'n', 'ŋ']
-}
-
-# Function to find all possible shared features for a given set of sounds
-def find_possible_features(sounds):
-    possible_features = []
-    for feature, feature_sounds in grouped_features.items():
-        if all(sound in feature_sounds for sound in sounds):
-            possible_features.append(feature)
-    return possible_features
-
-# Function to generate questions
+# Function to generate question sets
 def generate_questions(num_sets):
     questions = []
     for _ in range(num_sets):
-        # Randomly select sounds from the list
-        sounds = random.sample(list(set(sum(grouped_features.values(), []))), 5)
-        possible_answers = find_possible_features(sounds)
-        questions.append((sounds, possible_answers))
+        feature, sounds = random.choice(list(grouped_features.items()))
+        if len(sounds) > 5:
+            sound_group = random.sample(sounds, 5)
+        else:
+            sound_group = sounds
+        questions.append((sound_group, feature))
     return questions
 
 with tab4:
@@ -187,54 +182,45 @@ with tab4:
             st.session_state['current_question'] = 0
             st.session_state['score'] = 0
             st.session_state['answered'] = False
-            st.rerun()
+            st.experimental_rerun()
     
     # Step 2: Display the question
     if st.session_state['questions']:
         current_set = st.session_state['questions'][st.session_state['current_question']]
-        sounds, correct_answers = current_set
+        sounds, correct_answer = current_set
         
         st.markdown(f"### **Identify the Common Feature**")
         st.write(f"**Sounds:** [{', '.join(sounds)}]")
     
         # Step 3: Ask the user for input
+        st.write("Which feature is shared among these sounds?")
         user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
     
         # Step 4: Check answer and give feedback
-
-
-    # Step 4: Check answer and give feedback
-    if st.button("Check Answer"):
-        # Clean user input and correct answers for consistent comparison
-        cleaned_user_answer = user_answer.strip().replace(" ", "").lower()
-        cleaned_correct_answers = [ans.strip().replace(" ", "").lower() for ans in correct_answers]
+        if st.button("Check Answer"):
+            # Allow space variation: [+voice] and [ +voice] should be treated the same
+            if user_answer.replace(" ", "") == correct_answer.replace(" ", ""):
+                st.session_state['score'] += 1
+                st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
+            else:
+                st.error(f"❌ Incorrect. The correct answer is **{correct_answer}**.")
+            
+            st.session_state['answered'] = True
     
-        # Fix: Correctly check if user answer matches any valid answer
-        if cleaned_user_answer in cleaned_correct_answers:
-            st.session_state['score'] += 1
-            st.success(f"✅ Correct! The shared feature is **{user_answer}**.")
-        else:
-            # Fix: Format correct answers properly using full terms
-            formatted_answers = ', '.join(correct_answers)  # No splitting!
-            st.error(f"❌ Incorrect. The correct answer(s) are: {formatted_answers}")
-    
-        st.session_state['answered'] = True
+        # Step 5: Next question button
+        if st.session_state['answered']:
+            if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
+                if st.button("Next Question"):
+                    st.session_state['current_question'] += 1
+                    st.session_state['answered'] = False
+                    st.experimental_rerun()
+            else:
+                st.write("✅ **Practice Completed!**")
+                st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
+                if st.button("Restart Practice"):
+                    st.session_state['questions'] = []
+                    st.session_state['current_question'] = 0
+                    st.session_state['score'] = 0
+                    st.session_state['answered'] = False
+                    st.experimental_rerun()
 
-
-    
-    # Step 5: Next question button
-    if st.session_state['answered']:
-        if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
-            if st.button("Next Question"):
-                st.session_state['current_question'] += 1
-                st.session_state['answered'] = False
-                st.rerun()  # ✅ Correctly using st.rerun()
-        else:
-            st.write("✅ **Practice Completed!**")
-            st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
-            if st.button("Restart Practice"):
-                st.session_state['questions'] = []
-                st.session_state['current_question'] = 0
-                st.session_state['score'] = 0
-                st.session_state['answered'] = False
-                st.rerun()  # ✅ Correctly using st.rerun()
