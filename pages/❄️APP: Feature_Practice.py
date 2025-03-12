@@ -203,16 +203,21 @@ with tab4:
     
         # Step 4: Check answer and give feedback
 
+    # Step 4: Check answer and give feedback
     if st.button("Check Answer"):
-        if user_answer.replace(" ", "") in [ans.replace(" ", "") for ans in correct_answers]:
+        # Clean the user input and correct answers for consistent comparison
+        cleaned_user_answer = user_answer.strip().replace(" ", "").lower()
+        cleaned_correct_answers = [ans.strip().replace(" ", "").lower() for ans in correct_answers]
+    
+        if cleaned_user_answer in cleaned_correct_answers:
             st.session_state['score'] += 1
-            st.success(f"✅ Correct! The shared feature(s) are: {', '.join(f'**{ans}**' for ans in correct_answers)}")
+            st.success(f"✅ Correct! The shared feature is **{user_answer}**.")
         else:
-            # ✅ Fixing the string handling here!
-            formatted_answers = ', '.join(f'[{ans}]' for ans in correct_answers)
+            formatted_answers = ', '.join(f'{ans}' for ans in correct_answers)
             st.error(f"❌ Incorrect. The correct answer(s) are: {formatted_answers}")
     
         st.session_state['answered'] = True
+
 
     
     # Step 5: Next question button
