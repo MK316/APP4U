@@ -111,16 +111,14 @@ with tab3:
         return df
     
     def app():
-        with st.tabs(["🌀 Feature matrix for vowels", "🌀 Practice Applications"]):
-            with st.tabs(["Feature matrix for vowels"])[0]:
-                st.markdown('#### 🐣 Vowel Feature Matrix')
-                st.write('This matrix displays the distinctive features for English vowels in IPA.')
+        st.markdown('#### 🐣 Vowel Feature Matrix')
+        st.write('This matrix displays the distinctive features for English vowels in IPA.')
     
-                # Generate the feature matrix DataFrame
-                feature_matrix = create_feature_matrix(vowel_features)
+        # Generate the feature matrix DataFrame
+        feature_matrix = create_feature_matrix(vowel_features)
     
-                # Display the feature matrix
-                st.dataframe(feature_matrix, height=440, use_container_width=True)
+        # Display the feature matrix
+        st.dataframe(feature_matrix, height=440, use_container_width=True)
     
     if __name__ == "__main__":
         app()
