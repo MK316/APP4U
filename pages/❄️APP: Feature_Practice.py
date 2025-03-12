@@ -159,12 +159,12 @@ def generate_questions(num_sets):
 
 with tab4:
     with st.expander("**Instructions**"):
-    st.info("""
-    **Consider the following features only:**  
-    [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
-    [+sonorant], [+strident], [+nasal], [+continuant]  
-    Write answers in square brackets, like `[+voice]` or `[+nasal]`.
-    """)
+        st.info("""
+        **Consider the following features only:**  
+        [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
+        [+sonorant], [+strident], [+nasal], [+continuant]  
+        Write answers in square brackets, like `[+voice]` or `[+nasal]`.
+        """)
     
     # Initialize session state
     if 'questions' not in st.session_state:
