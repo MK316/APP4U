@@ -202,28 +202,29 @@ with tab4:
         user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
     
         # Step 4: Check answer and give feedback
-        if st.button("Check Answer"):
-            if user_answer.replace(" ", "") in [ans.replace(" ", "") for ans in correct_answers]:
-                st.session_state['score'] += 1
-                st.success(f"✅ Correct! The shared feature(s) are: {', '.join(correct_answers)}")
-            else:
-                st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(correct_answers)}")
+
+    if st.button("Check Answer"):
+        if user_answer.replace(" ", "") in [ans.replace(" ", "") for ans in correct_answers]:
+            st.session_state['score'] += 1
+            st.success(f"✅ Correct! The shared feature(s) are: {', '.join(f'**{ans}**' for ans in correct_answers)}")
+        else:
+            st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(f'**{ans}**' for ans in correct_answers)}")
     
-            st.session_state['answered'] = True
+        st.session_state['answered'] = True
     
-        # Step 5: Next question button
-        if st.session_state['answered']:
-            if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
-                if st.button("Next Question"):
-                    st.session_state['current_question'] += 1
-                    st.session_state['answered'] = False
-                    st.rerun()
-            else:
-                st.write("✅ **Practice Completed!**")
-                st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
-                if st.button("Restart Practice"):
-                    st.session_state['questions'] = []
-                    st.session_state['current_question'] = 0
-                    st.session_state['score'] = 0
-                    st.session_state['answered'] = False
-                    st.rerun()
+    # Step 5: Next question button
+    if st.session_state['answered']:
+        if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
+            if st.button("Next Question"):
+                st.session_state['current_question'] += 1
+                st.session_state['answered'] = False
+                st.rerun()  # ✅ Correctly using st.rerun()
+        else:
+            st.write("✅ **Practice Completed!**")
+            st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
+            if st.button("Restart Practice"):
+                st.session_state['questions'] = []
+                st.session_state['current_question'] = 0
+                st.session_state['score'] = 0
+                st.session_state['answered'] = False
+                st.rerun()  # ✅ Correctly using st.rerun()
