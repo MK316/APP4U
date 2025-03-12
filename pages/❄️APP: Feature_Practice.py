@@ -1,4 +1,5 @@
 import streamlit as st
+from st_aggrid import AgGrid
 import pandas as pd
 
 tab1, tab2 = st.tabs(["Feature matrix","Practice Applications"])
@@ -31,26 +32,20 @@ ipa_features = {
     'w': {'syllabic': '-', 'consonantal': '-', 'sonorant': '+', 'coronal': '-', 'anterior': '-', 'continuant': '+', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'}
 }
 
+feature_matrix = pd.DataFrame(ipa_features)
+
 with tab1:
     def create_feature_matrix(ipa_features):
         return pd.DataFrame(ipa_features)
 
-    def display_feature_matrix(feature_matrix):
+    def display_feature_matrix_with_aggrid(feature_matrix):
         st.title('IPA Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
+        
+        # Use AgGrid to display the DataFrame with more interactivity
+        AgGrid(feature_matrix)
     
-        # Construct a Markdown table manually
-        markdown_text = "Feature | " + " | ".join(feature_matrix.columns) + " \n"
-        markdown_text += "|:---:" * (len(feature_matrix.columns) + 1) + "|\n"
-    
-        for index, row in feature_matrix.iterrows():
-            row_data = " | ".join([f"**{val}**" if val == '+' else val for val in row])
-            markdown_text += f"{index} | {row_data}\n"
-    
-        st.markdown(markdown_text)
-
-    feature_matrix = create_feature_matrix(ipa_features)
-    display_feature_matrix(feature_matrix)
+    display_feature_matrix_with_aggrid(feature_matrix)
 
 with tab2:
     st.markdown('### 🐾 Distinctive Feature Practice Apps')
