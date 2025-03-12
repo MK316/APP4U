@@ -128,8 +128,7 @@ with tab3:
     if __name__ == "__main__":
         app()
 
-import streamlit as st
-import random
+
 
 # Grouped features based on previous dictionary
 grouped_features = {
@@ -210,17 +209,16 @@ with tab4:
         cleaned_user_answer = user_answer.strip().replace(" ", "").lower()
         cleaned_correct_answers = [ans.strip().replace(" ", "").lower() for ans in correct_answers]
     
+        # Fix: Correctly check if user answer matches any valid answer
         if cleaned_user_answer in cleaned_correct_answers:
             st.session_state['score'] += 1
             st.success(f"✅ Correct! The shared feature is **{user_answer}**.")
         else:
-            # Fix: format correct answers properly in brackets
-            formatted_answers = ', '.join(f'[{ans}]' for ans in correct_answers)
+            # Fix: Format correct answers properly using full terms
+            formatted_answers = ', '.join(correct_answers)  # No splitting!
             st.error(f"❌ Incorrect. The correct answer(s) are: {formatted_answers}")
     
         st.session_state['answered'] = True
-
-
 
 
     
