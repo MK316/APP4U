@@ -143,13 +143,7 @@ with tab3:
         app()
 
 
-with st.expander("**Instructions**"):
-    st.info("""
-    **Consider the following features only:**  
-    [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
-    [+sonorant], [+strident], [+nasal], [+continuant]  
-    Write answers in square brackets, like `[+voice]` or `[+nasal]`.
-    """)
+
 
 # Function to generate question sets
 def generate_questions(num_sets):
@@ -164,6 +158,14 @@ def generate_questions(num_sets):
     return questions
 
 with tab4:
+    with st.expander("**Instructions**"):
+    st.info("""
+    **Consider the following features only:**  
+    [+voice],[-voice], [+anterior], [+coronal], [+delayed release],  
+    [+sonorant], [+strident], [+nasal], [+continuant]  
+    Write answers in square brackets, like `[+voice]` or `[+nasal]`.
+    """)
+    
     # Initialize session state
     if 'questions' not in st.session_state:
         st.session_state['questions'] = []
