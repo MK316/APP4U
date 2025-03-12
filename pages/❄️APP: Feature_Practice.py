@@ -1,6 +1,7 @@
 import streamlit as st
 from st_aggrid import AgGrid
 import pandas as pd
+import random
 
 tab1, tab2, tab3, tab4 = st.tabs(["🌀 Feature matrix for consonants","🌀 Practice Applications","🌀 Vowel features","🌀 Natural class"])
 
