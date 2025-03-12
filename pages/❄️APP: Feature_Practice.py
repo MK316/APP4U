@@ -128,74 +128,95 @@ with tab3:
     if __name__ == "__main__":
         app()
 
-with tab4:
+# Grouped features based on previous dictionary
+grouped_features = {
+    '+voice': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '-voice': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
+    '+anterior': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
+    '-anterior': ['k', 'g', 'tʃ', 'dʒ', 'ʃ', 'ʒ', 'h', 'ŋ', 'j', 'w'],
+    '+coronal': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
+    '-coronal': ['p', 'b', 'k', 'g', 'f', 'v', 'h', 'm', 'ŋ', 'j', 'w'],
+    '+delayed release': ['tʃ', 'dʒ'],
+    '-delayed release': ['p', 'b', 't', 'd', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '+sonorant': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '-sonorant': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h'],
+    '+strident': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
+    '-strident': ['p', 'b', 't', 'd', 'k', 'g', 'θ', 'ð', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '+nasal': ['m', 'n', 'ŋ'],
+    '-nasal': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
+    '+continuant': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
+    '-continuant': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'm', 'n', 'ŋ']
+}
 
-    # Function to get a random set of sounds
-    def get_sounds():
-        return random.sample(list(ipa_features.keys()), k=random.randint(3, 5))
-    
-    # Function to find a shared feature among the selected sounds
-    def get_common_feature(sounds):
-        common_features = {}
-        for feature in ipa_features[sounds[0]].keys():
-            values = {ipa_features[sound][feature] for sound in sounds}
-            if len(values) == 1:
-                common_features[feature] = values.pop()
-        return common_features
-    
-    # Function to generate answer options
-    def generate_options(correct_feature):
-        all_features = list(ipa_features['p'].keys())
-        wrong_options = random.sample(all_features, 3)  # Take 3 wrong options
-        options = [f"{ipa_features['p'][opt]}{opt}" for opt in wrong_options]
-        correct_answer = f"{ipa_features['p'][correct_feature]}{correct_feature}"
-        options.append(correct_answer)
-        random.shuffle(options)
-        return options
-    
-    # Reset state to prepare for a new question
-    def reset_state():
-        while True:
-            st.session_state['sounds'] = get_sounds()
-            common_features = get_common_feature(st.session_state['sounds'])
-            if common_features:
-                st.session_state['correct_feature'] = next(iter(common_features.items()))
-                st.session_state['answered'] = False
-                st.session_state['feedback'] = None
-                break
-    
-    # Initialize state on first run
-    if 'sounds' not in st.session_state:
-        reset_state()
-    
-    # Display the question
-    st.markdown("## Identify the Common Feature")
-    st.markdown(f"**Sounds:** {' '.join([f'**{sound}**' for sound in st.session_state['sounds']])}")
-    
-    # Generate answer options
-    if st.session_state['correct_feature']:
-        correct_feature = st.session_state['correct_feature']
-        correct_answer = f"{correct_feature[1]}{correct_feature[0]}"
-        options = generate_options(correct_feature[0])
-    
-        # Multiple choice question
-        selected_option = st.radio("Which feature is shared among these sounds?", options, key="selected_option")
-    
-        # ✅ Fix: Separate answer check and reset logic
-        if st.button("Check Answer") and not st.session_state['answered']:
-            if selected_option == correct_answer:
-                st.session_state['feedback'] = f"✅ **Correct!** The shared feature is **{correct_answer}**."
+with tab4:
+    # Function to generate question sets
+    def generate_questions(num_sets):
+        questions = []
+        for _ in range(num_sets):
+            # Randomly select a feature and its sounds
+            feature, sounds = random.choice(list(grouped_features.items()))
+            if len(sounds) > 5:
+                sound_group = random.sample(sounds, 5)
             else:
-                st.session_state['feedback'] = f"❌ **Incorrect.** The correct answer is **{correct_answer}**."
+                sound_group = sounds
+            questions.append((sound_group, feature))
+        return questions
+    
+    # Initialize session state
+    if 'questions' not in st.session_state:
+        st.session_state['questions'] = []
+    if 'current_question' not in st.session_state:
+        st.session_state['current_question'] = 0
+    if 'score' not in st.session_state:
+        st.session_state['score'] = 0
+    if 'answered' not in st.session_state:
+        st.session_state['answered'] = False
+    
+    # Step 1: Ask the user how many sets they want to practice
+    if not st.session_state['questions']:
+        num_sets = st.number_input("How many sets would you like to practice?", min_value=1, max_value=10, value=5)
+        if st.button("Start Practice"):
+            st.session_state['questions'] = generate_questions(num_sets)
+            st.session_state['current_question'] = 0
+            st.session_state['score'] = 0
+            st.session_state['answered'] = False
+            st.experimental_rerun()
+    
+    # Step 2: Display the question
+    if st.session_state['questions']:
+        current_set = st.session_state['questions'][st.session_state['current_question']]
+        sounds, correct_answer = current_set
+        
+        st.markdown(f"### **Identify the Common Feature**")
+        st.write(f"**Sounds:** [{', '.join(sounds)}]")
+    
+        # Step 3: Ask the user for input
+        st.write("Which feature is shared among these sounds?")
+        user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
+    
+        # Step 4: Check answer and give feedback
+        if st.button("Check Answer"):
+            if user_answer.replace(" ", "") == correct_answer.replace(" ", ""):
+                st.session_state['score'] += 1
+                st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
+            else:
+                st.error(f"❌ Incorrect. The correct answer is **{correct_answer}**.")
+            
             st.session_state['answered'] = True
     
-        # Display feedback after checking
-        if st.session_state.get('feedback'):
-            st.markdown(st.session_state['feedback'])
-    
-        # ✅ Fix: Only reset state when "Next Question" is clicked
+        # Step 5: Next question button
         if st.session_state['answered']:
-            if st.button("Next Question"):
-                reset_state()
-                st.rerun()
-
+            if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
+                if st.button("Next Question"):
+                    st.session_state['current_question'] += 1
+                    st.session_state['answered'] = False
+                    st.experimental_rerun()
+            else:
+                st.write("✅ **Practice Completed!**")
+                st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
+                if st.button("Restart Practice"):
+                    st.session_state['questions'] = []
+                    st.session_state['current_question'] = 0
+                    st.session_state['score'] = 0
+                    st.session_state['answered'] = False
+                    st.experimental_rerun()
