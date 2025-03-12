@@ -40,19 +40,16 @@ with tab1:
         st.title('IPA Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
 
-        # Custom CSS to inject larger fonts and colors into the DataFrame display
-        st.write('<style>td {font-size: 20px !important; color: red !important;} .positive {color: green !important;}</style>', unsafe_allow_html=True)
-        
-        # Modify DataFrame for display: wrap positive values in a span with a class for styling
-        def custom_style(val):
-            color = 'green' if val == '+' else 'red'
-            return f'<span class="{"positive" if val == "+" else ""}" style="color: {color};">{val}</span>'
+        # Explain the symbols for clarity
+        st.markdown("""
+        **Key:**  
+        - **+** (plus) signifies a positive feature (shown in **bold**).  
+        - **-** (minus) signifies a negative feature.
+        """)
 
-        # Apply the styling function
-        feature_matrix = feature_matrix.applymap(custom_style)
-        
-        # Use Streamlit's dataframe function to maintain interactivity
-        st.dataframe(feature_matrix)
+        # Display the feature matrix with emphasis on + features
+        styled_matrix = feature_matrix.replace({'\+': '**+**', '\-': '-'}, regex=True)
+        st.dataframe(styled_matrix)
 
     # Generate and display the feature matrix
     feature_matrix = create_feature_matrix(ipa_features)
