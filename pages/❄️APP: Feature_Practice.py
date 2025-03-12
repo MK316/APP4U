@@ -107,7 +107,7 @@ with tab2:
 with tab3: 
     def create_feature_matrix(vowel_features):
         # Convert the dictionary to a DataFrame and transpose it
-        df = pd.DataFrame(vowel_features).T  # Transpose to make symbols columns and features rows
+        df = pd.DataFrame(vowel_features)  # Transpose to make symbols columns and features rows
         return df
     
     def app():
