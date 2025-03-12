@@ -128,42 +128,48 @@ with tab3:
     if __name__ == "__main__":
         app()
 
+import streamlit as st
+import random
+
 # Grouped features based on previous dictionary
 grouped_features = {
-    '+voice': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '-voice': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
-    '+anterior': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
-    '+coronal': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
-    '-coronal': ['p', 'b', 'k', 'g', 'f', 'v', 'h', 'm', 'ŋ', 'j', 'w'],
-    '+delayed release': ['tʃ', 'dʒ'],
-    '+sonorant': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
-    '+strident': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
-    '+nasal': ['m', 'n', 'ŋ'],
-    '+continuant': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
-    '-continuant': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'm', 'n', 'ŋ']
+    '[+voice]': ['b', 'd', 'g', 'dʒ', 'v', 'ð', 'z', 'ʒ', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[-voice]': ['p', 't', 'k', 'tʃ', 'f', 'θ', 's', 'ʃ', 'h'],
+    '[+anterior]': ['p', 'b', 't', 'd', 'f', 'v', 'θ', 'ð', 's', 'z', 'm', 'n', 'l', 'r'],
+    '[-anterior]': ['k', 'g', 'tʃ', 'dʒ', 'ʃ', 'ʒ', 'h', 'ŋ', 'j', 'w'],
+    '[+coronal]': ['t', 'd', 'tʃ', 'dʒ', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'n', 'l', 'r'],
+    '[-coronal]': ['p', 'b', 'k', 'g', 'f', 'v', 'h', 'm', 'ŋ', 'j', 'w'],
+    '[+delayed release]': ['tʃ', 'dʒ'],
+    '[-delayed release]': ['p', 'b', 't', 'd', 'k', 'g', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[+sonorant]': ['m', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[-sonorant]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h'],
+    '[+strident]': ['tʃ', 'dʒ', 'f', 'v', 's', 'z', 'ʃ', 'ʒ'],
+    '[-strident]': ['p', 'b', 't', 'd', 'k', 'g', 'θ', 'ð', 'h', 'm', 'n', 'ŋ', 'l', 'r', 'j', 'w'],
+    '[+nasal]': ['m', 'n', 'ŋ'],
+    '[-nasal]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
+    '[+continuant]': ['f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'h', 'l', 'r', 'j', 'w'],
+    '[-continuant]': ['p', 'b', 't', 'd', 'k', 'g', 'tʃ', 'dʒ', 'm', 'n', 'ŋ']
 }
 
+# Function to find all possible shared features for a given set of sounds
+def find_possible_features(sounds):
+    possible_features = []
+    for feature, feature_sounds in grouped_features.items():
+        if all(sound in feature_sounds for sound in sounds):
+            possible_features.append(feature)
+    return possible_features
+
+# Function to generate questions
+def generate_questions(num_sets):
+    questions = []
+    for _ in range(num_sets):
+        # Randomly select sounds from the list
+        sounds = random.sample(list(set(sum(grouped_features.values(), []))), 5)
+        possible_answers = find_possible_features(sounds)
+        questions.append((sounds, possible_answers))
+    return questions
+
 with tab4:
-    with st.expander("**Instructions**"):
-        st.info("""
-        **Consider the following features only:**  
-        [+/- voice], [+/- anterior], [+/- coronal], [+/- delayed release],  
-        [+/- sonorant], [+/- strident], [+/- nasal], [+/- continuant]  
-        Write answers in square brackets, like `[+voice]` or `[-nasal]`.
-        """)
-    
-    # Function to generate question sets
-    def generate_questions(num_sets):
-        questions = []
-        for _ in range(num_sets):
-            feature, sounds = random.choice(list(grouped_features.items()))
-            if len(sounds) > 5:
-                sound_group = random.sample(sounds, 5)
-            else:
-                sound_group = sounds
-            questions.append((sound_group, feature))
-        return questions
-    
     # Initialize session state
     if 'questions' not in st.session_state:
         st.session_state['questions'] = []
@@ -187,24 +193,22 @@ with tab4:
     # Step 2: Display the question
     if st.session_state['questions']:
         current_set = st.session_state['questions'][st.session_state['current_question']]
-        sounds, correct_answer = current_set
+        sounds, correct_answers = current_set
         
         st.markdown(f"### **Identify the Common Feature**")
         st.write(f"**Sounds:** [{', '.join(sounds)}]")
     
         # Step 3: Ask the user for input
-        st.write("Which feature is shared among these sounds?")
         user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
     
         # Step 4: Check answer and give feedback
         if st.button("Check Answer"):
-            # Allow space variation: [+voice] and [ +voice] should be treated the same
-            if user_answer.replace(" ", "") == correct_answer.replace(" ", ""):
+            if user_answer.replace(" ", "") in [ans.replace(" ", "") for ans in correct_answers]:
                 st.session_state['score'] += 1
-                st.success(f"✅ Correct! The shared feature is **{correct_answer}**.")
+                st.success(f"✅ Correct! The shared feature(s) are: {', '.join(correct_answers)}")
             else:
-                st.error(f"❌ Incorrect. The correct answer is **{correct_answer}**.")
-            
+                st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(correct_answers)}")
+    
             st.session_state['answered'] = True
     
         # Step 5: Next question button
@@ -223,4 +227,3 @@ with tab4:
                     st.session_state['score'] = 0
                     st.session_state['answered'] = False
                     st.rerun()
-
