@@ -121,7 +121,7 @@ with tab3:
         feature_matrix = create_feature_matrix(vowel_features)
     
         # Display the feature matrix
-        st.dataframe(feature_matrix, height=300, use_container_width=True)
+        st.dataframe(feature_matrix, height=280, use_container_width=True)
     
     if __name__ == "__main__":
         app()
