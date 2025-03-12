@@ -32,6 +32,12 @@ ipa_features = {
     'w': {'syllabic': '-', 'consonantal': '-', 'sonorant': '+', 'coronal': '-', 'anterior': '-', 'continuant': '+', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'}
 }
 
+# Dictionary comprehension to modify keys to include brackets
+modified_ipa_features = {phoneme: {'[' + feature + ']': value for feature, value in features.items()} for phoneme, features in ipa_features.items()}
+
+# Now modified_ipa_features contains the updated keys
+# print(modified_ipa_features)
+
 with tab1:
     def create_feature_matrix(ipa_features):
         # Convert the dictionary to a DataFrame
@@ -43,7 +49,7 @@ with tab1:
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
     
         # Generate the feature matrix DataFrame
-        feature_matrix = create_feature_matrix(ipa_features)
+        feature_matrix = create_feature_matrix(modified_ipa_features)
     
         # Display the feature matrix
         st.dataframe(feature_matrix, height=440, use_container_width=True)
