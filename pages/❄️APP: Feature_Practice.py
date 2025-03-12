@@ -1,7 +1,7 @@
 import streamlit as st
 
 def phonetics_apps_page():
-    st.title('🐾 Distinctive feature Practice Apps')
+    st.markdown('### 🐾 Distinctive feature Practice Apps')
     st.write('Applications to train yourself with distinctive features in phonology')
 
     # Describing your apps briefly
