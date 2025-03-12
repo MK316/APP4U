@@ -33,25 +33,22 @@ ipa_features = {
 
 with tab1:
     def create_feature_matrix(ipa_features):
-        df = pd.DataFrame(ipa_features)
-        return df
+        return pd.DataFrame(ipa_features)
 
     def display_feature_matrix(feature_matrix):
         st.title('IPA Consonant Feature Matrix')
         st.write('This matrix displays the distinctive features for 24 English consonants in IPA.')
+    
+        # Construct a Markdown table manually
+        markdown_text = "Feature | " + " | ".join(feature_matrix.columns) + " \n"
+        markdown_text += "|:---:" * (len(feature_matrix.columns) + 1) + "|\n"
+    
+        for index, row in feature_matrix.iterrows():
+            row_data = " | ".join([f"**{val}**" if val == '+' else val for val in row])
+            markdown_text += f"{index} | {row_data}\n"
+    
+        st.markdown(markdown_text)
 
-        # Explain the symbols for clarity
-        st.markdown("""
-        **Key:**  
-        - **+** (plus) signifies a positive feature (shown in **bold**).  
-        - **-** (minus) signifies a negative feature.
-        """)
-
-        # Display the feature matrix with emphasis on + features
-        styled_matrix = feature_matrix.replace({'\+': '**+**', '\-': '-'}, regex=True)
-        st.dataframe(styled_matrix)
-
-    # Generate and display the feature matrix
     feature_matrix = create_feature_matrix(ipa_features)
     display_feature_matrix(feature_matrix)
 
