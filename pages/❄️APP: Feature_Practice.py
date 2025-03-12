@@ -72,17 +72,17 @@ with tab2:
     with col1:
         st.image("images/button01.png", width=100)
         if st.button('App 1: Distinctive features', key='3'):
-            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Basic level - Feature marking for individual segments ")
+            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Basic level - Sound lists by feature marking ")
             st.markdown("Updated on: 2024.10.15")
     with col2:
         st.image("images/button01.png", width=100)
         if st.button('App 2: Feature Quiz 1', key='5'):
-            st.markdown("🌀 [App link](https://mk-316-feature-practice.hf.space/): Phonology, Distinctive feature quiz (click)")
+            st.markdown("🌀 [App link](https://mk-316-feature-practice.hf.space/): Basic level - Feature marking for individual segments")
             st.markdown("Updated on: 2024.10.14")
     with col3:
         st.image("images/button01.png", width=100)
         if st.button('App 3: Feature Quiz 2', key='6'):
-            st.markdown("🌀 [App link](https://feature-quiz02.streamlit.app/): Phonology, Distinctive feature quiz (choose)")
+            st.markdown("🌀 [App link](https://feature-quiz02.streamlit.app/): Level 1 - Distinctive feature quiz (choose)")
             st.markdown("Updated on: 2024.11.6")
 
     # URL to the raw image on GitHub
