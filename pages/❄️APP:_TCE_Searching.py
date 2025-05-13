@@ -2,38 +2,10 @@ import streamlit as st
 import pandas as pd
 
 # Define tab navigation
-tab1, tab2 = st.tabs(["🍎 Overview", "🌀 TCE Searching Engine"])
+tab1, tab2 = st.tabs(["🌀 TCE Searching Application", "🍎 Overview"])
 
 
 with tab1:
-    st.markdown("#### Phonetics & Phonology")
-    st.markdown("##### TCE (Teacher Certificate Exam) Question Searching Engine")
-
-    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date. _Laste updated (2025. 3. 11)_")
-
-
-
-    st.caption("This application is designed to help users efficiently search and review past exam questions.")
-    
-    st.markdown("""
-    #### ❄️ Here's How to Use:
-    <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div>
-    Users can search exam questions by <b>year, keywords, or text content (words containing...)</b>. After specifying the search criteria,
-    the application displays the relevant years where these questions appeared.
-    
-    <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
-    Following a successful search, users can select a year to view the exam question in detail,
-    including an image and related keywords.
-    """, unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.markdown("""
-    <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
-    continually updating to enhance its functionality and user experience.</div>
-    """, unsafe_allow_html=True)
-
-
-with tab2:
     # Load the DataFrame
     url = "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_new20241125.csv"
     df = pd.read_csv(url, encoding='utf-8-sig')
@@ -96,3 +68,31 @@ with tab2:
             st.image(image_url, caption=f'Exam Image for {st.session_state["selected_year"]}', width=800)
         else:
             st.error("No keywords or image found for this year.")
+
+
+with tab2:
+    st.markdown("#### Phonetics & Phonology")
+    st.markdown("##### TCE (Teacher Certificate Exam) Question Searching Engine")
+
+    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date. _Laste updated (2025. 3. 11)_")
+
+
+
+    st.caption("This application is designed to help users efficiently search and review past exam questions.")
+    
+    st.markdown("""
+    #### ❄️ Here's How to Use:
+    <div style="color: #FF8000;"><b>+ Step 1 Start Searching:</b></div>
+    Users can search exam questions by <b>year, keywords, or text content (words containing...)</b>. After specifying the search criteria,
+    the application displays the relevant years where these questions appeared.
+    
+    <div style="color: #FF8000;"><b>+ Step 2 Choose an Item from the Selected:</b></div>
+    Following a successful search, users can select a year to view the exam question in detail,
+    including an image and related keywords.
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.markdown("""
+    <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
+    continually updating to enhance its functionality and user experience.</div>
+    """, unsafe_allow_html=True)
