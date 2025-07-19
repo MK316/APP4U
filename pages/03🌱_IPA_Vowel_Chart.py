@@ -164,7 +164,7 @@ st.set_page_config(layout="wide")
 
 # Inside tab3
 with tab3:
-    st.header("🎯 English Diphthong Vowel Chart")
+    st.caption("📍 Keep in mind that each vowel's placement is illustrative and can vary depending on the dialect.")
 
     image_url = "https://github.com/MK316/APP4U/raw/main/images/diphthongs.png"
 
