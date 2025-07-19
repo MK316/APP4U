@@ -169,7 +169,7 @@ with tab3:
     st.header("🎯 Draw English Diphthongs on the Vowel Chart")
 
     # --- Step 1: Load image from GitHub (correctly) ---
-    image_url = "https://raw.githubusercontent.com/MK316/APP4U/main/pages/images/Vchart.png"
+    image_url = "https://github.com/MK316/APP4U/raw/main/images/Vchart.png"
 
     try:
         response = requests.get(image_url)
