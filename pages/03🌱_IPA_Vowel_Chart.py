@@ -4,6 +4,7 @@ from PIL import Image
 import os import BytesIO
 import requests
 
+st.set_page_config(layout="wide")
 
 st.set_page_config(page_title="Final IPA Vowel Chart")
 
@@ -159,15 +160,16 @@ with tab2:
     </table>
     """, unsafe_allow_html=True)
 
-with tab3:
+# Move this to the very top of your file
+st.set_page_config(layout="wide")
 
-    
-    st.set_page_config(layout="wide")
+# Inside tab3
+with tab3:
     st.header("🎯 Draw English Diphthongs on the Vowel Chart")
-    
+
     # --- Step 1: Load image from GitHub ---
     image_url = "https://raw.githubusercontent.com/MK316/APP4U/main/pages/images/vowelchart.png"
-    
+
     try:
         response = requests.get(image_url)
         response.raise_for_status()
@@ -175,7 +177,7 @@ with tab3:
     except Exception as e:
         st.error("❌ Failed to load the vowel chart image.")
         st.stop()
-    
+
     # --- Step 2: Display canvas ---
     canvas_result = st_canvas(
         fill_color="rgba(255, 0, 0, 0.3)",
@@ -185,10 +187,10 @@ with tab3:
         update_streamlit=True,
         height=image.height,
         width=image.width,
-        drawing_mode="freedraw",  # or "line", "arrow", "transform", etc.
+        drawing_mode="freedraw",  # You can change to "line" if preferred
         key="vowel_canvas",
     )
-    
+
     # --- Step 3: Clear canvas button ---
     st.markdown("---")
     if st.button("🧹 Clear Canvas"):
