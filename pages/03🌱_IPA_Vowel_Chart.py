@@ -1,8 +1,9 @@
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image
-from os import BytesIO
+from io import BytesIO
 import requests
+import os
 
 st.set_page_config(page_title="Final IPA Vowel Chart", layout="wide")
 
