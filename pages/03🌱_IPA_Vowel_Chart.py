@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_drawable_canvas import st_canvas
+from PIL import Image
 
 st.set_page_config(page_title="Final IPA Vowel Chart")
 
@@ -155,8 +157,37 @@ with tab2:
     """, unsafe_allow_html=True)
 
 with tab3:
-    st.markdown("📌 You can add more vowel visualizations or explanation notes here.")
+    # st.markdown("📌 You can add more vowel visualizations or explanation notes here.")
     # https://github.com/MK316/APP4U/blob/main/pages/images/vowelchart.png
 
+
+
+    st.header("🎯 Draw Diphthongs on the Vowel Chart")
+    
+    # Load background image
+    image_path = "https://github.com/MK316/APP4U/raw/main/pages/images/vowelchart.png"
+    image = Image.open(image_path)
+    
+    # Set canvas size based on image
+    canvas_width = image.width
+    canvas_height = image.height
+    
+    # Create canvas
+    canvas_result = st_canvas(
+        fill_color="rgba(255, 165, 0, 0.3)",  # Semi-transparent orange
+        stroke_width=3,
+        stroke_color="#ff0000",  # Red arrows/lines
+        background_image=image,
+        update_streamlit=True,
+        height=canvas_height,
+        width=canvas_width,
+        drawing_mode="freedraw",  # or "line" if you want straight lines
+        key="canvas_diphthongs"
+    )
+    
+    # Optional: Export/save or process
+    if canvas_result.json_data is not None:
+        st.subheader("🖼️ Drawing Data (debug):")
+        st.json(canvas_result.json_data)
 
 
