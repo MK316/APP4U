@@ -89,6 +89,8 @@ with tab1:
     2. /ɒ/ is a rounded version of /ɑ/.
 
     3. /ɜ/ is a contextual variant — for example, it appears in r-colored vowels or after r-deletion in some dialects.
+
+    4. /a/ is part of the diphthongs /aɪ/ and /aʊ/, and is not used as a simple vowel on its own.
     """)
 
 with tab2:
