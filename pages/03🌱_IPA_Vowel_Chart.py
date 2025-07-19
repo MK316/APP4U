@@ -165,7 +165,6 @@ st.set_page_config(layout="wide")
 
 # Inside tab3
 with tab3:
-with tab3:
 
     st.header("🎯 Draw English Diphthongs on the Vowel Chart")
 
