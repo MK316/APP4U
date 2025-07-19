@@ -165,37 +165,34 @@ st.set_page_config(layout="wide")
 
 # Inside tab3
 with tab3:
-
     st.header("🎯 Draw English Diphthongs on the Vowel Chart")
 
-    # --- Step 1: Load image from GitHub (correctly) ---
+    # ✅ 1. Raw GitHub image URL
     image_url = "https://github.com/MK316/APP4U/raw/main/images/Vchart.png"
-
-
 
     try:
         response = requests.get(image_url)
         response.raise_for_status()
-        image = Image.open(BytesIO(response.content)).convert("RGB")  # ✅ now safely loaded and converted
+        image = Image.open(BytesIO(response.content)).convert("RGB")
         image_np = np.array(image)
     except Exception as e:
-        st.error("❌ Failed to load the vowel chart image.")
+        st.error(f"❌ Failed to load the vowel chart image: {e}")
         st.stop()
 
-    # --- Step 2: Display canvas ---
+    # ✅ 2. Drawable canvas
     canvas_result = st_canvas(
         fill_color="rgba(255, 0, 0, 0.3)",
         stroke_width=3,
         stroke_color="#0000FF",
-        background_image=image_np,  # ✅ use the numpy array
+        background_image=image_np,
         update_streamlit=True,
         height=image.height,
         width=image.width,
-        drawing_mode="freedraw",  # You can also try "line"
+        drawing_mode="freedraw",
         key="vowel_canvas",
     )
 
-    # --- Step 3: Clear canvas button ---
+    # ✅ 3. Clear canvas
     st.markdown("---")
     if st.button("🧹 Clear Canvas"):
         st.experimental_rerun()
