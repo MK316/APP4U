@@ -7,9 +7,9 @@ import requests
 st.set_page_config(page_title="Final IPA Vowel Chart", layout="wide")
 
 
-st.title("🌱 Final IPA Vowel Chart")
+st.title("🌱 IPA Vowel Chart")
 
-tab1, tab2, tab3 = st.tabs(["Monophthongs", "Tense/Lax", "Diphthongs"])
+tab1, tab2, tab3 = st.tabs(["🚦 Monophthongs", "🚦 Tense/Lax", "🚦 Diphthongs"])
 
 with tab1:
     st.markdown("""
