@@ -172,6 +172,6 @@ with tab3:
         response = requests.get(image_url)
         response.raise_for_status()
         image = Image.open(BytesIO(response.content))
-        st.image(image, caption="Vowel chart to draw diphthongs", use_column_width=True)
+        st.image(image, caption="Vowel chart to draw diphthongs", use_container_width=True)
     except Exception as e:
         st.error(f"❌ Failed to load the image: {e}")
