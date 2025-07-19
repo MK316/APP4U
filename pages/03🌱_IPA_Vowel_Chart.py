@@ -166,7 +166,7 @@ st.set_page_config(layout="wide")
 with tab3:
     st.header("🎯 English Diphthong Vowel Chart")
 
-    image_url = "https://github.com/MK316/APP4U/raw/main/images/Vchart.png"
+    image_url = "https://github.com/MK316/APP4U/raw/main/images/diphthongs.png"
 
     try:
         response = requests.get(image_url)
