@@ -173,7 +173,8 @@ with tab3:
     try:
         response = requests.get(image_url)
         response.raise_for_status()
-        image = Image.open(BytesIO(response.content))
+        image = image.convert("RGB")
+
     except Exception as e:
         st.error("❌ Failed to load the vowel chart image.")
         st.stop()
