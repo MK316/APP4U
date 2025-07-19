@@ -167,7 +167,11 @@ with tab3:
     
     # Load background image
     image_path = "https://github.com/MK316/APP4U/raw/main/pages/images/vowelchart.png"
-    image = Image.open(image_path)
+    # Make sure the file exists
+    if os.path.exists(image_path):
+        image = Image.open(image_path)
+    else:
+        st.error("Image file not found. Please check the path or upload the image.")
     
     # Set canvas size based on image
     canvas_width = image.width
