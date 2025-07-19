@@ -57,11 +57,11 @@ tab1, tab2, tab3 = st.tabs(["[1] Explore Sounds", "[2] Identify Symbol", "[3] Id
 with tab1:
     st.header("🔎 IPA Sound Filter")
 
-    voicing = st.selectbox("Voicing", ["Any", "voiced", "voiceless"])
-    place = st.selectbox("Place of articulation", ["Any", "bilabial", "labiodental", "dental", "alveolar", "post-alveolar", "palatal", "labio-velar", "velar", "glottal"])
-    oro_nasal = st.selectbox("Oro-nasal process", ["Any", "oral", "nasal"])
-    centrality = st.selectbox("Centrality", ["Any", "(central)", "lateral"])
-    manner = st.selectbox("Manner of articulation", ["Any", "plosive", "nasal", "fricative", "affricate", "approximant (lateral)", "approximant (non-lateral)", "glide"])
+    voicing = st.selectbox("[1] Voicing (VD vs. VL)", ["Any", "voiced", "voiceless"])
+    place = st.selectbox("[2] Place of articulation", ["Any", "bilabial", "labiodental", "dental", "alveolar", "post-alveolar", "palatal", "labio-velar", "velar", "glottal"])
+    oro_nasal = st.selectbox("[3] Oro-nasal process (Oral vs. Nasal)", ["Any", "oral", "nasal"])
+    centrality = st.selectbox("[4] Centrality (Central vs. Lateral)", ["Any", "(central)", "lateral"])
+    manner = st.selectbox("[5] Manner of articulation", ["Any", "plosive", "nasal", "fricative", "affricate", "approximant (lateral)", "approximant (non-lateral)", "glide"])
 
     # Define place articulation order
     place_order = {
