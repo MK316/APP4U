@@ -1,7 +1,9 @@
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image
-import os
+import os import BytesIO
+import requests
+
 
 st.set_page_config(page_title="Final IPA Vowel Chart")
 
@@ -158,41 +160,36 @@ with tab2:
     """, unsafe_allow_html=True)
 
 with tab3:
-    # st.markdown("📌 You can add more vowel visualizations or explanation notes here.")
-    # https://github.com/MK316/APP4U/blob/main/pages/images/vowelchart.png
 
-
-
-    st.header("🎯 Draw Diphthongs on the Vowel Chart")
     
-    # Load background image
-    image_path = "https://raw.githubusercontent.com/MK316/APP4U/main/pages/images/vowelchart.png"
-    # Make sure the file exists
-    if os.path.exists(image_path):
-        image = Image.open(image_path)
-    else:
-        st.error("Image file not found. Please check the path or upload the image.")
+    st.set_page_config(layout="wide")
+    st.header("🎯 Draw English Diphthongs on the Vowel Chart")
     
-    # Set canvas size based on image
-    canvas_width = image.width
-    canvas_height = image.height
+    # --- Step 1: Load image from GitHub ---
+    image_url = "https://raw.githubusercontent.com/MK316/APP4U/main/pages/images/vowelchart.png"
     
-    # Create canvas
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()
+        image = Image.open(BytesIO(response.content))
+    except Exception as e:
+        st.error("❌ Failed to load the vowel chart image.")
+        st.stop()
+    
+    # --- Step 2: Display canvas ---
     canvas_result = st_canvas(
-        fill_color="rgba(255, 165, 0, 0.3)",  # Semi-transparent orange
+        fill_color="rgba(255, 0, 0, 0.3)",
         stroke_width=3,
-        stroke_color="#ff0000",  # Red arrows/lines
+        stroke_color="#0000FF",
         background_image=image,
         update_streamlit=True,
-        height=canvas_height,
-        width=canvas_width,
-        drawing_mode="freedraw",  # or "line" if you want straight lines
-        key="canvas_diphthongs"
+        height=image.height,
+        width=image.width,
+        drawing_mode="freedraw",  # or "line", "arrow", "transform", etc.
+        key="vowel_canvas",
     )
     
-    # Optional: Export/save or process
-    if canvas_result.json_data is not None:
-        st.subheader("🖼️ Drawing Data (debug):")
-        st.json(canvas_result.json_data)
-
-
+    # --- Step 3: Clear canvas button ---
+    st.markdown("---")
+    if st.button("🧹 Clear Canvas"):
+        st.experimental_rerun()
