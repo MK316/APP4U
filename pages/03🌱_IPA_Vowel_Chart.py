@@ -1,9 +1,8 @@
 import streamlit as st
-from streamlit_drawable_canvas import st_canvas
+
 from PIL import Image
 from io import BytesIO
 import requests
-import os
 
 st.set_page_config(page_title="Final IPA Vowel Chart", layout="wide")
 
@@ -165,34 +164,14 @@ st.set_page_config(layout="wide")
 
 # Inside tab3
 with tab3:
-    st.header("🎯 Draw English Diphthongs on the Vowel Chart")
+    st.header("🎯 English Diphthong Vowel Chart")
 
-    # ✅ 1. Raw GitHub image URL
     image_url = "https://github.com/MK316/APP4U/raw/main/images/Vchart.png"
 
     try:
         response = requests.get(image_url)
         response.raise_for_status()
-        image = Image.open(BytesIO(response.content)).convert("RGB")
-        image_np = np.array(image)
+        image = Image.open(BytesIO(response.content))
+        st.image(image, caption="Vowel chart to draw diphthongs", use_column_width=True)
     except Exception as e:
-        st.error(f"❌ Failed to load the vowel chart image: {e}")
-        st.stop()
-
-    # ✅ 2. Drawable canvas
-    canvas_result = st_canvas(
-        fill_color="rgba(255, 0, 0, 0.3)",
-        stroke_width=3,
-        stroke_color="#0000FF",
-        background_image=image_np,
-        update_streamlit=True,
-        height=image.height,
-        width=image.width,
-        drawing_mode="freedraw",
-        key="vowel_canvas",
-    )
-
-    # ✅ 3. Clear canvas
-    st.markdown("---")
-    if st.button("🧹 Clear Canvas"):
-        st.experimental_rerun()
+        st.error(f"❌ Failed to load the image: {e}")
