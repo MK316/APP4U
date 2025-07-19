@@ -2,3 +2,4 @@ streamlit
 streamlit-aggrid
 pandas
 numpy
+streamlit-drawable-canvas
