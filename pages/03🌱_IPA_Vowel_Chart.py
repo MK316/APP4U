@@ -166,7 +166,7 @@ with tab3:
     st.header("🎯 Draw Diphthongs on the Vowel Chart")
     
     # Load background image
-    image_path = "https://github.com/MK316/APP4U/raw/main/pages/images/vowelchart.png"
+    image_path = "https://raw.githubusercontent.com/MK316/APP4U/main/pages/images/vowelchart.png"
     # Make sure the file exists
     if os.path.exists(image_path):
         image = Image.open(image_path)
