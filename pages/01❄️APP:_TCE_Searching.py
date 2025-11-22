@@ -7,7 +7,8 @@ tab1, tab2 = st.tabs(["🌀 TCE Searching Application", "🍎 Overview"])
 
 with tab1:
     # Load the DataFrame
-    url = "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_new20241125.csv"
+    # url = "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_new20241125.csv"
+    url = "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_new20251122.csv"
     df = pd.read_csv(url, encoding='utf-8-sig')
 
     # Function to search years based on the selected mode
