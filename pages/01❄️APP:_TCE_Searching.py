@@ -74,7 +74,7 @@ with tab1:
 with tab2:
     st.markdown("##### TCE (Teacher Certificate Exam) Question Searching Engine")
 
-    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date. _Laste updated (2025. 3. 11)_")
+    st.info("Note: Data contains previous exam questions in the area of phonetics & phonology from 2005 up to date. _Laste updated (2025. 11.23)_")
 
 
 
