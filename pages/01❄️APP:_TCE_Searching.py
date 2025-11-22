@@ -64,7 +64,7 @@ with tab1:
         if not match.empty:
             image_filename = match.iloc[0]['Filename']
             image_url = f'https://huggingface.co/spaces/MK-316/TCE/resolve/main/TExams/{image_filename}'
-            keywords = match.iloc[0]['TEXT']
+            keywords = match.iloc[0]['KEYWORDS']
             st.markdown(f"**🌷 Keywords:** 🔑 {keywords}")
             st.image(image_url, caption=f'Exam Image for {st.session_state["selected_year"]}', width=800)
         else:
