@@ -5,7 +5,8 @@ import io
 
 st.set_page_config(page_title="Classroom English Trainer", layout="wide")
 
-CSV_URL = "https://docs.google.com/spreadsheets/d/1Oa8RtJ8P1KuRTWafcGxXTWTQ83KuKBWx466-jrq1Aig/edit?usp=sharing"  # your public link
+CSV_URL = "https://docs.google.com/spreadsheets/d/1Oa8RtJ8P1KuRTWafcGxXTWTQ83KuKBWx466-jrq1Aig/export?format=csv&gid=0"
+
 
 @st.cache_data
 def load_data():
