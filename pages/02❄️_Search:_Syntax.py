@@ -183,7 +183,7 @@ def render_search_tab(tab_name: str, data_url: str):
                 horizontal=True,
                 key=f"{tab_key}_mode",
             )
-        query = st.text_input("Search query", "", key=f"{tab_key}_query")
+        query = st.text_input("Search query: e.g., wh-movement, intransitive, tense, etc.", "", key=f"{tab_key}_query")
         submitted = st.form_submit_button("🍒 Search")
 
     if submitted:
