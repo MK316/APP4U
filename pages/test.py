@@ -9,7 +9,7 @@ from PIL import Image
 # Page setup (MUST be first Streamlit call)
 # ---------------------------
 st.set_page_config(page_title="Teacher Certification Exam Search", layout="wide")
-st.title("TCE Search (🌵 Syntax)")
+st.title("TCE Search")
 
 # ---------------------------
 # Config
@@ -251,7 +251,7 @@ def render_search_tab(tab_name: str, data_url: str):
 # ---------------------------
 # UI
 # ---------------------------
-tab_syntax, tab_prag, tab_gram = st.tabs(["Syntax", "Pragmatics", "Grammar"])
+tab_syntax, tab_prag, tab_gram = st.tabs(["🔳 Syntax", "🔳 Pragmatics", "🔳 Grammar"])
 
 with tab_syntax:
     render_search_tab("Syntax", DATASETS["Syntax"])
