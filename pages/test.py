@@ -9,46 +9,39 @@ st.set_page_config(page_title="TCE Search", layout="wide")
 # ---------------------------
 # Config: datasets per tab
 # ---------------------------
-# Use the stable RAW pattern: .../main/... (avoid /refs/heads/ on Streamlit Cloud)
 DATASETS = {
-    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_syntax.csv",
+    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_syntax.csv",
     "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_pragmatics.csv",
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_grammar.csv",
 }
 
-# Image folders (set per tab). Change these if your folders differ.
+# IMPORTANT: GitHub "tree" URLs do NOT work as image sources.
+# Use raw.githubusercontent.com instead.
 IMAGE_BASE_URLS = {
     "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/main/data/syntax/",
     "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/main/data/pragmatics/",
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/data/grammar/",
 }
 
-# ---------------------------
-# Data loader (more robust + clearer errors)
-# ---------------------------
 @st.cache_data(show_spinner=False, ttl=3600)
-def load_data(url: str) -> pd.DataFrame:
-    """
-    Load CSV from a URL with a browser-like User-Agent.
-    This helps avoid some HTTP 403 cases on Streamlit Cloud.
-    """
+def fetch_bytes(url: str) -> bytes:
+    """Fetch bytes from a URL with a browser-like User-Agent."""
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req) as resp:
+        status = getattr(resp, "status", 200)
+        if status != 200:
+            raise RuntimeError(f"HTTP status {status} for URL:\n{url}")
+        return resp.read()
+
+@st.cache_data(show_spinner=False, ttl=3600)
+def load_csv(url: str) -> pd.DataFrame:
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req) as resp:
-            status = getattr(resp, "status", 200)
-            if status != 200:
-                raise RuntimeError(f"HTTP status {status} when loading CSV:\n{url}")
-            raw = resp.read()
-
+        raw = fetch_bytes(url)
         df = pd.read_csv(BytesIO(raw), encoding="utf-8-sig")
-
-        # Defensive typing for expected columns
         for col in ["YEAR", "KEYWORDS", "TEXT", "Filename"]:
             if col in df.columns:
                 df[col] = df[col].astype(str)
-
         return df
-
     except HTTPError as e:
         raise RuntimeError(f"HTTPError {e.code} when loading CSV:\n{url}") from e
     except URLError as e:
@@ -56,33 +49,26 @@ def load_data(url: str) -> pd.DataFrame:
     except Exception as e:
         raise RuntimeError(f"Failed to read CSV:\n{url}\nError: {e}") from e
 
-
 def search_years(df: pd.DataFrame, search_mode: str, query: str):
     query = (query or "").strip().lower()
     if not query:
         st.error("Type a search query first.")
         return []
 
-    # Guard against missing columns
-    required = {
-        "YEAR": ["YEAR"],
-        "Keywords": ["KEYWORDS"],
-        "Words containing": ["TEXT"],
-    }
-    for c in required.get(search_mode, []):
-        if c not in df.columns:
-            st.error(f"Your dataset is missing the required column: {c}")
-            return []
+    required = {"YEAR": "YEAR", "Keywords": "KEYWORDS", "Words containing": "TEXT"}
+    needed_col = required.get(search_mode)
+    if needed_col and needed_col not in df.columns:
+        st.error(f"Your dataset is missing the required column: {needed_col}")
+        return []
 
     if search_mode == "YEAR":
-        q = query[:4]
-        matches = df[df["YEAR"].str.startswith(q)]
+        matches = df[df["YEAR"].str.startswith(query[:4])]
     elif search_mode == "Keywords":
-        keyword_list = [k.strip() for k in query.split(",") if k.strip()]
-        if not keyword_list:
+        keys = [k.strip() for k in query.split(",") if k.strip()]
+        if not keys:
             st.error("Enter at least one keyword (comma-separated if multiple).")
             return []
-        matches = df[df["KEYWORDS"].str.lower().apply(lambda x: any(k in x for k in keyword_list))]
+        matches = df[df["KEYWORDS"].str.lower().apply(lambda x: any(k in x for k in keys))]
     elif search_mode == "Words containing":
         matches = df[df["TEXT"].str.lower().str.contains(query, na=False)]
     else:
@@ -93,39 +79,29 @@ def search_years(df: pd.DataFrame, search_mode: str, query: str):
         st.error("No results found for your query.")
         return []
 
-    # Keep order, remove duplicates
     years = matches["YEAR"].tolist()
-    seen = set()
-    deduped = []
+    deduped, seen = [], set()
     for y in years:
         if y not in seen:
             seen.add(y)
             deduped.append(y)
     return deduped
 
-
 def render_search_tab(tab_name: str, data_url: str):
-    # Show the URL being used (helps debugging on Streamlit Cloud)
-    with st.expander("Dataset info", expanded=False):
-        st.write("Dataset URL:", data_url)
-
     try:
-        df = load_data(data_url)
+        df = load_csv(data_url)
     except RuntimeError as e:
         st.error(str(e))
         st.stop()
 
-    # Unique keys per tab (avoid session_state collisions)
     key_prefix = tab_name.lower()
 
     st.subheader(f"❄️ [{tab_name}] Start Searching")
 
     with st.form(key=f"{key_prefix}_search_form"):
         col1, col2 = st.columns([1, 3])
-
         with col1:
             st.write("Search mode by:")
-
         with col2:
             search_mode = st.radio(
                 "",
@@ -168,26 +144,32 @@ def render_search_tab(tab_name: str, data_url: str):
                 return
 
             row = match.iloc[0]
-            image_filename = row.get("Filename", "")
+            image_filename = row.get("Filename", "").strip()
             keywords = row.get("KEYWORDS", "")
 
             if not image_filename or image_filename.lower() in {"nan", "none"}:
                 st.error("No image filename found for this item.")
                 return
 
-            # Use tab-specific image folder
             base = IMAGE_BASE_URLS.get(tab_name, IMAGE_BASE_URLS["Syntax"])
             image_url = f"{base}{image_filename}"
 
             st.markdown(f"**🌷 Keywords:** 🔑 {keywords}")
-            st.image(image_url, caption=f"{tab_name} Exam Image for {selected_year}", width=800)
+
+            # Show the exact URL (helps you confirm it is raw + correct)
+            with st.expander("Image URL (debug)", expanded=False):
+                st.write(image_url)
+
+            # Load the image (this also catches 404/403 and shows a readable error)
+            try:
+                img_bytes = fetch_bytes(image_url)
+                st.image(img_bytes, caption=f"{tab_name} Exam Image for {selected_year}", width=800)
+            except Exception as e:
+                st.error(f"Failed to load image.\n{image_url}\nError: {e}")
+
     else:
         st.info("Run a search first to see results here.")
 
-
-# ---------------------------
-# UI: 3 tabs
-# ---------------------------
 tab_syntax, tab_prag, tab_gram = st.tabs(["Syntax", "Pragmatics", "Grammar"])
 
 with tab_syntax:
