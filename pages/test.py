@@ -4,6 +4,17 @@ import urllib.request
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from io import BytesIO
+from PIL import Image
+
+img_bytes = fetch_bytes(image_url)
+img = Image.open(BytesIO(img_bytes))
+
+zoom = st.slider("Zoom", 50, 200, 120, 10, key=f"{key_prefix}_zoom")
+w, h = img.size
+img_zoomed = img.resize((int(w * zoom / 100), int(h * zoom / 100)), Image.NEAREST)
+
+st.image(img_zoomed, caption=f"{tab_name} Exam Image for {selected_year}", use_container_width=True)
+
 
 st.set_page_config(page_title="TCE Search", layout="wide")
 
