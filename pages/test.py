@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import urllib.request
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from io import BytesIO
 
 st.set_page_config(page_title="TCE Search", layout="wide")
@@ -23,6 +24,12 @@ IMAGE_BASE_URLS = {
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/data/grammar/",
 }
 
+def normalize_filename(filename: str) -> str:
+    fn = (filename or "").strip()
+    fn = fn.replace(" ", "_")       # space → underscore
+    fn = fn.lower()                 # normalize case
+    return quote(fn)                # URL-safe
+    
 @st.cache_data(show_spinner=False, ttl=3600)
 def fetch_bytes(url: str) -> bytes:
     """Fetch bytes from a URL with a browser-like User-Agent."""
@@ -152,7 +159,9 @@ def render_search_tab(tab_name: str, data_url: str):
                 return
 
             base = IMAGE_BASE_URLS.get(tab_name, IMAGE_BASE_URLS["Syntax"])
-            image_url = f"{base}{image_filename}"
+            safe_name = normalize_filename(image_filename)
+            image_url = f"{base}{safe_name}"
+
 
             st.markdown(f"**🌷 Keywords:** 🔑 {keywords}")
 
