@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import urllib.request
-from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from io import BytesIO
 from PIL import Image
@@ -45,7 +44,6 @@ def load_csv(url: str) -> pd.DataFrame:
             df[col] = df[col].astype(str).fillna("")
     return df
 
-# Cache decoded image too (so slider reruns don’t re-download/re-decode)
 @st.cache_data(show_spinner=False, ttl=3600)
 def load_pil_image(url: str) -> Image.Image:
     b = fetch_bytes(url)
@@ -64,11 +62,9 @@ def filename_variants(filename: str) -> list[str]:
         return []
 
     variants = [fn0]
-
     if " " in fn0:
         variants.append(fn0.replace(" ", "_"))
 
-    # extension variants (GitHub is case-sensitive)
     out = []
     for v in variants:
         lower = v.lower()
@@ -84,10 +80,8 @@ def filename_variants(filename: str) -> list[str]:
         else:
             out.extend([v + ".png", v + ".PNG"])
 
-    # add also originals (in case already perfect)
     out.extend(variants)
 
-    # de-dup preserving order
     seen, uniq = set(), []
     for x in out:
         x = x.strip()
@@ -123,7 +117,7 @@ def search_years(df: pd.DataFrame, search_mode: str, query: str) -> list[str]:
             st.error("Enter at least one keyword (comma-separated).")
             return []
         matches = df[df["KEYWORDS"].str.lower().apply(lambda x: any(k in x for k in keys))]
-    else:  # Words containing
+    else:
         matches = df[df["TEXT"].str.lower().str.contains(query, na=False)]
 
     if matches.empty:
@@ -139,50 +133,34 @@ def search_years(df: pd.DataFrame, search_mode: str, query: str) -> list[str]:
     return deduped
 
 # ---------------------------
-# Image display (no blur, no losing state)
+# Image rendering (NO SLIDER)
 # ---------------------------
 def render_image_view(tab_key: str):
-    """
-    This section renders ONLY if we have a stored image URL in session_state.
-    Because it is driven by session_state, slider reruns won’t make it disappear.
-    """
     img_url = st.session_state.get(f"{tab_key}_img_url", "")
     year = st.session_state.get(f"{tab_key}_img_year", "")
     tab_name = st.session_state.get(f"{tab_key}_img_tabname", tab_key)
+    keywords = st.session_state.get(f"{tab_key}_img_keywords", "")
+
     if not img_url:
         return
+
+    if keywords:
+        st.markdown(f"🌷 Keywords: 🔑 {keywords}")
 
     with st.expander("Image URL (debug)", expanded=False):
         st.write(img_url)
 
     try:
         img = load_pil_image(img_url)
+        st.caption(f"Original pixels: {img.size[0]} × {img.size[1]}")
+        # Native display (best for sharp text)
+        st.image(img, caption=f"{tab_name} Exam Image for {year}")
     except Exception as e:
         st.error(f"Failed to load image.\n{img_url}\nError: {e}")
-        return
 
-    st.caption(f"Original pixels: {img.size[0]} × {img.size[1]}")
-
-    mode = st.radio(
-        "Display mode",
-        ["Native (no resizing)", "Zoom (crisp)"],
-        horizontal=True,
-        key=f"{tab_key}_display_mode",
-    )
-
-    if mode == "Native (no resizing)":
-        # Native pixel display (no forced width). Best for avoiding blur.
-        st.image(img, caption=f"{tab_name} Exam Image for {year}")
-    else:
-        zoom = st.slider("Zoom", 50, 300, 140, 10, key=f"{tab_key}_zoom")
-        w, h = img.size
-        new_w = max(1, int(w * zoom / 100))
-        new_h = max(1, int(h * zoom / 100))
-
-        # NEAREST keeps text crisp (no smoothing)
-        img_zoomed = img.resize((new_w, new_h), resample=Image.NEAREST)
-        st.image(img_zoomed, caption=f"{tab_name} Exam Image for {year}")
-
+# ---------------------------
+# Tab renderer
+# ---------------------------
 def render_search_tab(tab_name: str, data_url: str):
     tab_key = tab_name.lower()
 
@@ -194,7 +172,6 @@ def render_search_tab(tab_name: str, data_url: str):
 
     st.subheader(tab_name)
 
-    # ---- Search UI ----
     with st.form(key=f"{tab_key}_form"):
         col1, col2 = st.columns([1, 3])
         with col1:
@@ -226,7 +203,6 @@ def render_search_tab(tab_name: str, data_url: str):
         key=f"{tab_key}_year",
     )
 
-    # ---- Show button loads + stores a working image URL in session_state ----
     if st.button("🍒 Show me the exam question", key=f"{tab_key}_show"):
         match = df[df["YEAR"] == selected_year]
         if match.empty:
@@ -236,8 +212,6 @@ def render_search_tab(tab_name: str, data_url: str):
         row = match.iloc[0]
         keywords = row.get("KEYWORDS", "")
         filename = row.get("Filename", "")
-
-        st.markdown(f"🌷 Keywords: 🔑 {keywords}")
 
         if not filename or filename.lower() in {"nan", "none"}:
             st.error("Filename is missing in the dataset for this item.")
@@ -250,7 +224,6 @@ def render_search_tab(tab_name: str, data_url: str):
         last_err = None
         for u in urls:
             try:
-                # Try loading as an image (stronger than just bytes)
                 _ = load_pil_image(u)
                 chosen = u
                 break
@@ -266,16 +239,17 @@ def render_search_tab(tab_name: str, data_url: str):
             )
             return
 
-        # Persist selection so slider reruns don't wipe it
+        # Persist selection so reruns keep showing the image
         st.session_state[f"{tab_key}_img_url"] = chosen
         st.session_state[f"{tab_key}_img_year"] = selected_year
         st.session_state[f"{tab_key}_img_tabname"] = tab_name
+        st.session_state[f"{tab_key}_img_keywords"] = keywords
 
-    # ---- Render image view if previously loaded ----
+    # Always show the last loaded image (if any)
     render_image_view(tab_key)
 
 # ---------------------------
-# UI: tabs
+# UI
 # ---------------------------
 tab_syntax, tab_prag, tab_gram = st.tabs(["Syntax", "Pragmatics", "Grammar"])
 
