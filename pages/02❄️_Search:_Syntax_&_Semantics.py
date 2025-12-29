@@ -9,7 +9,7 @@ from PIL import Image
 # Page setup (MUST be first Streamlit call)
 # ---------------------------
 st.set_page_config(page_title="Teacher Certification Exam Search", layout="wide")
-st.title("TCE Search")
+st.title("TCE Search II")
 
 # ---------------------------
 # Config
