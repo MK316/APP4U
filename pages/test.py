@@ -7,9 +7,9 @@ st.set_page_config(page_title="TCE Search", layout="wide")
 # Config: datasets per tab
 # ---------------------------
 DATASETS = {
-    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_Syntax.csv",
-    "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_Pragmatics.csv",
-    "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_Grammar.csv",
+    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_syntax.csv",
+    "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_pragmatics.csv",
+    "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/pages/data/TExam_grammar.csv",
 }
 
 IMAGE_BASE_URL = "https://raw.githubusercontent.com/MK316/APP4U/main/data/syntax/"
