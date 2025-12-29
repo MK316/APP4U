@@ -1,0 +1,475 @@
+﻿Filename,YEAR,KEYWORDS,TEXT
+2026_1.PNG,2026_1,"wh-movement, that-trace effect, relative clause","Regardless of the presence of a complementizer, wh-movement of objects seems to be free in English.
+
+What do you think Peter bought it
+What do you think that Peter bought it
+
+Wh-movement from subject position, however, is only possible when there is no overt that complementizer. This phenomenon is called the that-trace effect.
+
+Who do you think invited Peter
+Who do you think that it invited Peter
+
+Relative clauses share with wh-questions the property of having an argument or adjunct missing within the clause. The who wh-phrase in the following example is fronted to the beginning of the clause, leaving a gap where we expect the argument to be.
+
+He has asked who I saw
+He met the poor girl who I invited
+
+Thus, it is only natural that the that-trace effect also applies to relative clauses, as can be seen in the following examples.
+
+She saw the boy who she thought I was her boyfriend
+She saw the boy who she thought that I was her boyfriend  Who do you think that they told me that would come
+I only recommend a program I feel will help improve your English
+What assurance do I have that this food is actually good for my body
+Who did Sam say Tim wanted Pam to try to convince Jim to get me to hire
+This is good for a legal system critics said that appeared troubled by arrogance
+"
+2025_1.PNG,2025_1,"subject raising, subject control, raising, control, diagnostic test","In general, the matrix subject is semantically associated with the matrix verb, which is called an ordinary subject.
+
+Chris experienced the feeling of wanting to convince Max
+In some cases, the matrix subject does not have a direct semantic relationship with the matrix verb, but semantically belongs solely in the embedded clause. This is called a raised subject. The meaning of this sentence is very close to that of Chris seemed convinced Max.
+
+Chris tried to convince Max
+Chris seemed to convince Max
+
+There are diagnostic tests to distinguish one from the other, which include using meaningless dummy pronouns and voice transparency. First, a dummy pronoun, such as there or it, cannot appear in the ordinary subject position, as shown in the example which suggests that the subject of want is an ordinary subject. In contrast, the pronoun can appear in the raised subject position, so the appearance of there in the example suggests that the subject of seem is a raised subject.
+
+There wants to be plenty of time
+There seems to be plenty of time
+
+The second diagnostic test involves voice transparency between active and passive forms, and only the sentence with a raised subject can denote the same meaning with its passive counterpart. Consider the sentences which are the passive counterparts of the examples respectively.
+
+Max was convinced by Chris
+Max seemed to be convinced by Chris
+
+Note that this sentence does not have the same truth condition with the first sentence, as the subject of want refers to Max in the first sentence. In contrast, this sentence is truth conditionally equivalent to the second sentence, as the subject of seem demonstrates that the subject of want is an ordinary subject and that of seem is a raised subject. Now consider the sentences.
+
+The fire fighter attempted to save the man
+The fire fighter happened to save the man
+
+The two diagnostic tests can reveal that the second sentence contains a raised subject."
+2025_2.PNG,2025_2,"thematic relation, argument theta role, theta-role, theta grid, theta-grid, theta criterion, theta-criterion, relative clause","It is well known that predicates can take different numbers of obligatory arguments. For example, a transitive predicate like hit requires two arguments, a subject and an object, and an intransitive predicate like put requires three arguments, a subject, a direct object, and an objective predicative complement.
+
+Bill hit the ball
+Bill put the vase on the table
+
+One way to encode these restrictions is to use thematic relations, where each argument receives a specific theta role assigned by the verb. For instance, Bill in hit assigns an agent theta role to Bill and a theme theta role to the ball. This thematic relation can be represented formally in a structure called a theta grid. The theta grid for hit is as follows.
+
+Hit assigns agent noun phrase and theme noun phrase
+
+To ensure that a sentence is grammatical, two conditions must be met. Each argument must receive only one theta role, and each theta role must be assigned to only one argument. This requirement is known as the theta criterion.
+
+One relative clause introduces an intriguing pattern. A relative pronoun can either appear or remain silent, as seen in the following example.
+
+John met the man who Mary kissed
+
+It is assumed that the relative pronoun who originally appears in the object position of the relative clause and moves to the front of the embedded clause. This movement is called wh movement. The silent counterpart that corresponds to the relative pronoun is assumed to follow the same process.
+
+John met the man Mary kissed
+John met the man who Mary kissed
+
+Susan put the book
+The ball John hit broke the window"
+2024_1.PNG,2024_1,"passive, external argument, expletive, passive, raising, EPP, Case, Burzio's generalization","Passive predicates are known to have no external arguments, that is, subject arguments. Therefore, the passive sentences are uninterpretable but ungrammatical because every sentence requires an overt subject.
+
+It is believed that the team will win
+The team is believed that the team will win
+
+In this context, the expletive it is a meaningless placeholder, can make a grammatical sentence. Despite insertion of it, however, the sentence remains ungrammatical. The only difference between the two sentences is whether the complement clause is finite or non finite.
+
+It is believed that the team will win
+It is believed the team to win
+
+Moreover, the same pattern holds in raising predicates. It seems that the team will win
+It seems the team to win
+
+The unexpected parallel between passive and raising predicates can be accounted for by the empirically attested observation, which states that a predicate which has no external argument cannot assign accusative or objective case. Accordingly, the ungrammaticality of the sentence is because the noun phrase the team is case less because passive and raising predicates are unable to assign accusative case to it.
+
+This case less noun phrase problem can be solved by moving the case assigned position, such as the subject position of the finite clause or the object position of the transitive verb, without an insertion.
+
+The team is believed to win
+The team seems to win
+
+The detective was thought to have destroyed the evidence
+It was told the students that they should pass the exam
+It is likely that the mirror should not have been broken
+It appeared to be required the students to read two books
+The experiment proved to be successful"
+2023_1.PNG,2023_1,No Crossing Branches Constraint,"A sentence sometimes allows for more than one reading when a modifier has more than one option to take. For instance, in the sentence The seminar was about language in France, the meaning of the phrase in France may modify either the seminar or language to make a difference in meaning.
+
+I went to a seminar on language in France
+
+In syntax, branches are not allowed to cross in tree structures, which is also known as the No Crossing Branches constraint. This constraint can be seen in the sentence which is ungrammatical due to a violation of the No Crossing Branches constraint.
+
+The baby might be afraid in the park of new people
+
+The man is talking to the woman with a tablet on the desk
+The man is on the desk and the woman owns a tablet
+The woman is on the desk and the man owns a tablet
+The woman owns a tablet and the tablet is on the desk
+
+He should not surely break his promise
+He should surely not break his promise"
+2023_2.PNG,2023_2,"parts of speech, distribution, distributional context ","Traditionally, the parts of speech such as adjective, adverb, noun, preposition, or verb have been defined under semantic criteria. For example, nouns are defined as words that denote people, things, animals, and places. In many cases, the traditional definition works well as teachers, tables, cats, and schools are all categorized as nouns. However, there are many other cases in which the definition does not work. For instance, sincerity, love, and destruction are all nouns but they denote personality traits, an emotional state, and a process, respectively.
+
+As an alternative, syntacticians categorize the parts of speech under distributional criteria. They group words that can fit in the syntactic context and then name the category. In the distributional context, for example, words such as dog, child, analysis, or love can fill in the blank, but other words like run, eliminate, or sadly cannot. In other words, no part of speech other than a noun can occur in the blank.
+
+Bearing the description above in mind, consider the following examples that show the distributions of there and fast.
+
+They repaired the car right there
+They repaired the car right fast
+
+They repaired the car very fast
+They repaired the car very there
+
+They repaired the car fast enough
+They repaired the car there enough
+
+The people there are very cheerful
+The people fast are very cheerful
+
+The place he drove his car to is in the center
+The place he drove his car to is fast
+The place he drove his car to is there"
+2022_1.PNG,2022_1,"Head Movement, VP-ellipsis, affix lowering","The tense affix such as ed or s forms an independent head that is separated from a verb in the underlying structure. The tense affix needs to attach to a verb in the surface structure via so called head movement. To be specific, it lowers onto lexical verbs, and auxiliary verbs be and have raise to tense.
+
+Joe finished the cake
+Joe was listening to music
+
+Let us now observe the data that involve verb phrase ellipsis. Verb phrase ellipsis is assumed to be licensed when the verb phrase in the second conjunct is isomorphic to that of its corresponding antecedent. For example, the verb phrase of the second conjunct is identical to the one in the first conjunct, and deletion of the verb phrase is possible. The same holds of the following example. However, an interesting difference is observed. Namely, dummy do is required in the second conjunct in one case, but prohibited in the other.
+
+Joe did not finish the cake, but Mary finished the cake
+Joe did not finish the cake, but Mary did
+Joe did not finish the cake, but Mary finished
+
+Kim was not listening to him, but Sue was listening to him
+Kim was not listening to him, but Sue was
+Kim was not listening to him, but Sue did
+
+To derive the grammatical sentences and prevent the ungrammatical ones, a certain order of syntactic operations must take place. For the first case, one operation must take place prior to the other, but for the second case, the order of the two operations must be reversed."
+2022_2.PNG,2022_2,"Subjacency, binding node, wh-phrase","Subjacency is a syntactic constraint that restricts movement to be local. Namely, movement should cross over only one bounding node. Crossing over more than one bounding node in one cycle of movement would result in ungrammaticality.
+
+What did Sue hear the rumor that Bill broke
+What did Sue hear the rumor that Bill broke
+
+The wh phrase involves two cycles of wh movement. In the first cycle, the wh phrase raises from the complement of broke to the specifier of the complementizer phrase in the embedded clause, from which it raises to the matrix specifier position of the complementizer phrase in the second cycle. It is crucial to note that the second cycle crosses over three bounding nodes. This is a violation of Subjacency and results in ungrammaticality.
+
+Now consider a grammatical sentence which involves one cycle of wh movement crossing over two tense phrases, hence apparently violating Subjacency.
+
+Which book does John seem to like
+
+To explain the grammaticality of the sentence above, an additional condition should be imposed for one of the tense phrases not to be counted as a bounding node.
+
+Complements of a verb are not bounding nodes.
+
+Bearing the above description in mind, reconsider the sentence with what undergoing the second cycle of wh movement. When this happens, it crosses over two bounding nodes. This is because the complementizer phrase is no longer a bounding node.
+
+Which actress did you think that John had a strong influence on
+Which actress did a picture of scare the entire population
+Which actress did John believe spoiled the whole movie"
+2022_3.PNG,2022_3,"Coordination, complement, adjunct, pre-nominal position","Coordination is possible when two constituents share the same type of syntactic function. As shown in one example, a complement can be conjoined by another complement. If it is combined with an adjunct, however, ungrammaticality results.
+
+We will not reveal the nature of the threat or where it came from
+I went to the park and for health reason
+
+The syntactic function of dependents, that is, complements or adjuncts, influences one replacement of nouns too. Note, for example, that a noun prince can be replaced by one in one sentence, but not in another. The difference lies in what syntactic function the prepositional phrase serves in each example. The noun is modified by an adjunct in the first case, but by a complement in the second.
+
+The prince from Denmark and the one from Japan met each other yesterday
+The prince of Denmark and the one of Japan met each other yesterday
+
+It is possible for dependents of nouns to appear in a pre nominal position, which triggers structural ambiguity. For instance, Korean in the Korean professor can be interpreted as either complement or adjunct. The complement reading corresponds to the professor teaching the Korean language, and the adjunct reading corresponds to the professor from Korea.
+
+The man who entered the room was the linguistics and Korean professor
+Mina is not the Japanese professor but the Korean one"
+2021_1.PNG,2021_1,"specifier, preposition, postposition","In the languages of the world, we have two different types of adposition: a preposition type, for example English, and a postposition type, for example Korean. With the preposition type, we find that a preposition head precedes its complement. As for the postposition type, a postposition follows its complement.
+
+However, some linguists argue that all languages uniformly have the preposition system and the seemingly postposition system is derived from the preposition type by movement.
+
+We can apply the analysis to the so called particle structure.
+
+They left this part out
+
+In this sentence, the noun phrase this part moves from the complement position of the head out to the specifier position."
+2021_2.PNG,2021_2,"locative inversion, preposing, postposing","Locative inversion involves the preposing of a locative phrase before the verb and the postposing of the subject after the verb.
+
+John ran into the house
+Into the house ran John
+
+A woman stood on the corner
+On the corner stood a woman
+
+Note that the second sentence can be derived from the first by moving the locative phrase into the house to the front of the sentence and by inverting the verb ran and the subject John. Likewise, we can derive the corresponding sentence with a woman. Meanwhile, there is some restriction with locative inversion. Consider the following examples.
+
+My friend Mary seated my mother among the guests of honor
+Among the guests of honor seated my mother my friend Mary
+Among the guests of honor seated my friend Mary my mother
+
+The women danced beautiful dances around the fire
+Around the fire danced beautiful dances the women
+Around the fire danced the women beautiful dances
+
+All the examples above clearly show that the basic verb types affect the grammaticality of locative inversion.
+
+Out of the house came an old lady
+Under the bridge lived a troll a good life"
+2021_3.PNG,2021_3,"VP, TP, CP, coordination, wh-cleft sentence, promise, intend, believe","To account for some syntactic phenomena in English, we can resort to phrasal categories such as verb phrase, tense phrase, complementizer phrase, and so on. First, let us assume that only constituents which belong to the same phrasal category can be coordinated. For example, a noun phrase can conjoin with another noun phrase, but not with an adjective phrase.
+
+The student or the teacher
+The student or very pretty
+
+The same restriction also holds true with clausal structures. The following structures are clearly different, since they cannot be coordinated by the conjunction or.
+
+We did not intend you to hurt him
+We did not intend for him to hurt you
+We did not intend you to hurt him or for him to hurt you
+
+So, based on the phrasal category and the assumption about coordination, we can explain the ungrammaticality of such sentences.
+
+Second, the restriction on wh cleft sentences can also be attributed to phrasal categories.
+
+What I will do is postpone the meeting
+
+A verb phrase can be in the focus position after the verb of wh cleft sentences like the example above. Consider further the following examples.
+
+Bill promised to behave himself
+What Bill promised is to behave himself
+
+They believe him to be innocent
+What they believe is him to be innocent
+
+The verb promise is known to take a complementizer phrase complement which is headed by a null complementizer, and we find that complementizer phrase can be in the focus position. Meanwhile, the verb believe requires a tense phrase complement, and from the ungrammaticality of the example above, it is clear that a tense phrase cannot be in the focus position of a wh cleft sentence. Thus, based on the types of phrasal categories, we can explain the restriction on wh cleft sentences.
+
+She argued persuasively or that their offer should be rejected
+They offered us a choice of red wine, white wine, or beer
+What he claims is that he was insulted
+What we had not intended was you to get hurt"
+2020_1.PNG,2020_1,"negative polarity item, c-command, temporal adverbials, locative adverbials, embedded reading, matrix reading","There is a class of words such as yet and any called negative polarity items. They are allowed in sentences containing a negative word such as not.
+
+The defense strategy had not been determined yet
+The defense strategy had been determined yet
+
+However, there is an additional structural condition for a negative polarity item to be licensed by negation. The negation has to c command the negative polarity item.
+
+Any defense strategy had not been determined
+
+A node c commands its sister nodes and all the daughter nodes of its sister nodes.
+
+Given the definition of c command, not does not c command any. Hence, the sentence is ungrammatical.
+
+Temporal and locational adverbials can be structurally ambiguous in that they can modify either a matrix element or an embedded element. In the following example, yesterday can modify the embedded predicate knew the answer. This reading is called an embedded reading. In the embedded reading, it is asked whether Mark knew the answer yesterday. By contrast, yesterday can also modify the matrix predicate wondered. This reading is called a matrix reading. In the matrix reading, yesterday is when Celin wondered about Mark.
+
+Celin wondered if Mark knew the answer yesterday
+
+Mary said that Justin did not sing in any room
+Mary did not say that Justin sang in any room"
+2020_2.PNG,2020_2,"VP-internal subject hypothesis, specifier of VP","There is an intriguing phenomenon in English in which two semantically related constituents are separated.
+
+All the students will work hard
+The students will all work hard
+
+In both sentences, the quantifier all modifies the subject the students. What is interesting is that in the second sentence, the quantifier positioned after the subject forms a discontinuous constituent with no major change in meaning.
+
+This fact can be straightforwardly accounted for if it is assumed that the entire constituent all the students is base generated in the position of the verb phrase. As illustrated, all the students undergoes movement to the surface subject position. By contrast, just part of the constituent, the students, moves to the subject position, leaving all behind in its base position.
+
+This account is based upon the verb phrase internal subject hypothesis, which states that a subject is base generated in the position of the verb phrase and in turn moves to the position of the tense phrase."
+2019_1.PNG,2019_1,"extraposition, clausal modifiers of NPs, VP preposing, adjoin","Clausal modifiers of noun phrases which function as the subject or the object can move to the end of the sentence. This process is called extraposition. The extraposed complementizer phrase can be adjoined to the verb phrase or the tense phrase.
+
+A man who has red hair just came in
+A man just came in who has red hair
+
+John will not turn a friend who needs help away
+John will not turn a friend away who needs help
+
+Let us take a closer examination of the extraposition of the complementizer phrase from the object position. As confirmed in the following example, verb phrase preposing can be further applied and the resulting sentence is grammatical. This suggests that the extraposed complementizer phrase from the object position is adjoined to the verb phrase, since only phrasal constituents can move.
+
+John said that he would not turn a friend away who needs help, and turn a friend away who needs help he would not
+
+The whole process can be represented as follows. From the initial structure, the clausal modifier complementizer phrase is adjoined to the verb phrase, and the resulting verb phrase constituent moves to the front of the sentence.
+
+From the brief observation, it can be proposed that an extraposed complementizer phrase is adjoined to the first phrasal constituent containing the noun phrase out of which it is extraposed.
+
+Few people who knew him would work with John
+Few people would work with John who knew him
+Work with John who knew him few people would"
+2019_2.PNG,2019_2,"Control, Raising, ECM, PRO, arbitrary PRO, non-arbitrary PRO","Despite their similarity on the surface, sentences in the first set are of different types, as suggested in their paraphrases in the second set. Sentences like the first example are called control constructions, while those like the second are raising or exceptional case marking constructions. Unlike the latter, an empty pronominal noun phrase called PRO is postulated in control constructions.
+
+John persuaded Sue to obey her parents
+John believed Sue to be obedient to her parents
+
+John persuaded Sue that she should obey her parents
+John believed that Sue was obedient to her parents
+
+In fact, there are two kinds of PRO. One is called arbitrary PRO, whose meaning is basically someone. Arbitrary PRO is like a referring expression or a pronoun in that it can get its meaning from outside the sentence. The other is non arbitrary PRO, which can be further distinguished into two varieties, obligatory control and optional control. The optional control is exemplified in the following example. PRO here can either refer back to John or it can have an arbitrary PRO reading. The obligatory control is exemplified in the next examples. PRO in one example obligatorily refers back to the main clause subject, hence called subject control, while PRO in the other obligatorily refers back to the main clause object, hence called object control.
+
+To go to college is not essential for success in life
+John knows that it is essential to be well behaved
+John tried to behave
+John persuaded Sue to obey her parents
+
+PRO to improve himself John should consider therapy
+John is easy to talk to
+
+John motivated Sue to study harder
+John reported Sue to be obnoxious
+John threatened Sue to leave her"
+2018_1.PNG,2018_1,"coordinate conjunction, conjoin, CP, TP","Sentences must satisfy various principles to be grammatically correct. Consider the following sentences.
+
+It seems that Tom admires Mary
+Tom seems that he admires Mary
+
+The first sentence is grammatical but the second sentence is ungrammatical since the matrix subject Tom has no theta role.
+
+Next, consider sentences containing an anaphor.
+
+Tom thinks that Mary admires herself
+Tom thinks that Mary admires himself
+
+Tom expects Mary to admire herself
+Tom expects Mary to admire himself
+
+The grammatical sentences above are acceptable since the reflexive pronoun herself is in the same clause as, and bound by, the antecedent Mary. However, the ungrammatical sentences are unacceptable since the reflexive pronoun himself does not occur in the same clause as the antecedent Tom, violating the binding condition, which requires a reflexive pronoun to be bound by its antecedent in its binding domain, which is the smallest clause containing the anaphor.
+
+Finally, consider the following sentences.
+
+It seems that Tom is believed to admire Mary
+Tom seems that it is believed to admire Mary
+
+The first sentence above is grammatically correct since no violation of grammatical principles has occurred. However, the second sentence is ungrammatical since the movement of the matrix subject has violated a constraint which bans a subject from crossing another subject. 
+
+Consider the following sentence.
+
+Tom appears to Mary to be believed by his friends to brag about himself
+
+In the sentence above, the reflexive pronoun himself is in the lowest embedded clause, whereas its antecedent Tom is in the subject position of the matrix clause."
+2018_2.PNG,2018_2,"matrix subject, theta role, reflexive pronoun, bound, antecedent, binding condition, no crossing another subject","Sentences must satisfy various principles to be grammatically correct. Consider the following sentences.
+
+It seems that Tom admires Mary
+Tom seems that he admires Mary
+
+The first sentence is grammatical but the second sentence is ungrammatical since the matrix subject Tom has no theta role.
+
+Next, consider sentences containing an anaphor.
+
+Tom thinks that Mary admires herself
+Tom thinks that Mary admires himself
+
+Tom expects Mary to admire herself
+Tom expects Mary to admire himself
+
+The grammatical sentences above are acceptable since the reflexive pronoun herself is in the same clause as and bound by the antecedent Mary. However, the ungrammatical sentences are unacceptable since the reflexive pronoun himself does not occur in the same clause as the antecedent Tom, violating the binding condition. This condition requires a reflexive pronoun to be bound by its antecedent in its binding domain, which is the smallest clause containing the anaphor.
+
+Finally, consider the following sentences.
+
+It seems that Tom is believed to admire Mary
+Tom seems that it is believed to admire Mary
+
+The first sentence above is grammatically correct since no violation of grammatical principles has occurred. However, the second sentence is ungrammatical since the movement of the matrix subject has violated a constraint which bans a subject from crossing another subject. 
+
+Consider the following sentence.
+
+Tom appears to Mary to be believed by his friends to brag about himself
+
+In the sentence above, the reflexive pronoun himself is in the lowest embedded clause, whereas its antecedent Tom is in the subject position of the matrix clause."
+2017_1.PNG,2017_1,"intransitive verbs, unergative verbs, unaccusative verbs, there inversion","Not all intransitive verbs are of the same kind. Compare the two sentences below.
+
+An angel jumped on the hill
+An angel appeared on the hill
+
+Although both of the above sentences are intransitive, they are not of the same kind. They have different syntactic and semantic properties. In the first sentence, the subject originates in the specifier position external to the verb bar constituent, receiving an agent role. Verbs like jump are known as unergative verbs. However, in the second sentence, the superficial subject originates in the complement position within the immediate verb bar projection of the verb, receiving a theme role. Then it moves to subject position. Verbs like appear are known as unaccusative verbs.
+
+The two types of intransitive verbs can be distinguished by means of tests such as the following. Unaccusative verbs like appear allow a word order called there inversion, where the underlying complement remains in its original position after the verb. On the other hand, since the subject of unergative verbs like jump does not originate in the complement position of the verbs, it is not allowed to appear in that position after the verbs with there inversion.
+
+There jumped an angel on the hill
+There appeared an angel on the hill
+
+Several people ate in the Korean restaurant
+Several customers shopped in the new shopping center
+Several students remained in the school library
+Several soldiers saluted in the military ceremony
+Several complications arose in the medical experiment"
+2017_2.PNG,2017_2,"anaphors, bound, antecedent, coindexed, c-command, double object construction","Anaphors such as each other have to be bound by their antecedent. An anaphor must satisfy two conditions to be bound. An anaphor can be bound if it is coreferential with its antecedent and is also c commanded by that antecedent within the smallest clause or noun phrase containing the anaphor. A node c commands its sister and all the descendants of its sister.
+
+Consider the two structures for the verb phrase in the double object construction. One structure is a ternary branching structure, which is a kind of multiple branching structure, and the other is a binary branching structure.
+
+Tom will give Mary a book
+
+In the two structures, the direct and indirect objects have different structural relations.
+
+Mary showed the boys each other
+Mary showed each other the boys
+
+In the examples above, the boys and each other refer to the same people."
+2016_1.PNG,2016_1,"PP modifier, Complement, Adjunct, wh-movement","A prepositional phrase modifier has distinct grammatical functions. It can be either a complement or an adjunct.
+
+The specialist in phonology
+The specialist at the stage
+
+Two types of syntactic arguments can be presented for the structural distinction between prepositional phrase complements and prepositional phrase adjuncts. First, they are strictly ordered when they both occur as postnominal modifiers, as the following contrast shows.
+
+The specialist in phonology at the stage
+The specialist at the stage in phonology
+
+Another syntactic argument can be formulated in relation to wh movement. Noun phrases within prepositional phrase complements can be preposed, while noun phrases within prepositional phrase adjuncts cannot.
+
+What area of linguistics is he a specialist in
+Which place is he a specialist at
+
+He is a contender with a knee injury
+He is a contender for the PGA title"
+2015_1.PNG,2015_1,"reflexive pronoun, ordinary pronoun, proper noun, antecedent, referent, smallest clause","The sentences below show three types of noun phrases: the reflexive pronoun, the ordinary pronoun, and the proper noun.
+
+John likes himself
+Mary met him
+John came
+
+The reflexive pronoun should have the antecedent in the sentence from which it picks up its reference, with the noun phrases indicating the same referent. This sharply contrasts with the ordinary pronoun and the proper noun.
+
+John introduced himself to Mary
+Himself came
+
+John introduced him to Mary
+John introduced Bill to Mary
+
+The existence of the antecedent in the sentence, however, is not a sufficient condition to license the reflexive pronoun.
+
+John thinks that himself is intelligent
+John told Mary about herself
+
+The examples above show that the reflexive pronoun finds its antecedent in the smallest unit that contains it. The sentences in which this condition is not met are ungrammatical in contrast to those in which it is met."
+2014_1.PNG,2014_1,"post-modification, to-infinitives, relative clauses, appositive clauses, object, subject","In post modification, to infinitives can be interpreted as relative clauses or appositive clauses. When a to infinitive is interpreted as a relative clause, the modified head noun corresponds to the relative pronoun, which is implicit in most cases, in the internal structure of the to infinitive.
+
+I will buy books to read
+I will buy books which I will read
+
+The meaning of the first sentence is equivalent to that of the second sentence. Since books is the antecedent of the object relative pronoun in the second sentence, it can be interpreted as the object of the verb in the internal structure of the to infinitive in the first sentence. The modified head noun can also correspond to an implicit relative pronoun with other functions, the subject, the object of the preposition, and the object of the omitted preposition.
+
+When a to infinitive is interpreted as an appositive clause, there is no implicit relative pronoun in the to infinitive that corresponds to the head noun.
+
+I need someone to help me with my homework
+Let us think about issues to deal with tomorrow
+We did not have money to buy food
+Do you have plans to travel abroad
+
+Analyze the sentences below and fill in the blanks with words from the passage.
+
+The couples found places to stay before having dinner
+I am looking for doctors to consult regarding my mother’s health
+
+The head nouns in the two sentences correspond to different functions in the internal structures of the to infinitives."
+2014_2.PNG,2014_2,"thematic roles, argument structure, agent, theme, experiencer, instrument","Every predicate is associated with an argument structure, which specifies the number of arguments it requires. The predicate assigns its arguments thematic roles including the following roles.
+
+Agent is the instigator of the action
+Theme is the entity affected by the action or state
+Experiencer is the entity experiencing the psychological state
+Instrument is the means by which the action or event is carried out
+
+Thematic roles do not have a one to one relationship with grammatical functions such as the subject and the object. For example, the argument the ball is the object in one sentence and the subject in another sentence, but it retains the same thematic role theme in both sentences. Other examples can be seen below.
+
+David kicked the ball
+The ball was kicked by David
+
+A brick smashed the window
+They expected the ship to sink
+David opened the door slowly
+Bob cut the tree with a saw
+
+The subject in the sentence with a brick smashed the window and the object of the preposition in the sentence with Bob cut the tree with a saw carry the role of one thematic role, whereas the subject of the subordinate clause in the sentence with they expected the ship to sink and the object in the sentence with David opened the door slowly have another thematic role."
