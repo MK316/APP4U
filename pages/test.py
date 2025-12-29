@@ -251,13 +251,13 @@ def render_search_tab(tab_name: str, data_url: str):
 # ---------------------------
 # UI
 # ---------------------------
-tab_syntax, tab_prag, tab_gram = st.tabs(["🔳 Syntax", "🔳 Pragmatics", "🔳 Grammar"])
+tab_syntax, tab_prag, tab_gram = st.tabs(["🚦 Syntax", "🚦 Pragmatics", "🚦 Grammar"])
 
 with tab_syntax:
-    render_search_tab("🔳 Syntax", DATASETS["Syntax"])
+    render_search_tab("Syntax", DATASETS["Syntax"])
 
 with tab_prag:
-    render_search_tab("🔳 Pragmatics", DATASETS["Pragmatics"])
+    render_search_tab("Pragmatics", DATASETS["Pragmatics"])
 
 with tab_gram:
-    render_search_tab("🔳 Grammar", DATASETS["Grammar"])
+    render_search_tab("Grammar", DATASETS["Grammar"])
