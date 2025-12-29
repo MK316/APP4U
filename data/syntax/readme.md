@@ -1,3 +1,3 @@
-# Syntax TCE data
+# Syntax TCE data (2014~2025)
 
-+ 2025. 12. 29 updated
++ Date updated: 2025. 12. 29
