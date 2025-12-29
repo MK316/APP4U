@@ -175,7 +175,7 @@ def render_search_tab(tab_name: str, data_url: str):
     with st.form(key=f"{tab_key}_form"):
         col1, col2 = st.columns([1, 3])
         with col1:
-            st.write("Search mode:")
+            st.write("[1] 📌 Search mode:")
         with col2:
             search_mode = st.radio(
                 "",
@@ -183,7 +183,7 @@ def render_search_tab(tab_name: str, data_url: str):
                 horizontal=True,
                 key=f"{tab_key}_mode",
             )
-        query = st.text_input("Search query: e.g., wh-movement, intransitive, tense, etc.", "", key=f"{tab_key}_query")
+        query = st.text_input("[2] 📌 Search query (by YEAR or Keywords): e.g., 2026, 2014, ... or wh-movement, intransitive, tense, etc.", "", key=f"{tab_key}_query")
         submitted = st.form_submit_button("🍒 Search")
 
     if submitted:
