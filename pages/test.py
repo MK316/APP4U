@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from urllib.error import HTTPError, URLError
 
 st.set_page_config(page_title="TCE Search", layout="wide")
 
@@ -16,12 +17,15 @@ IMAGE_BASE_URL = "https://raw.githubusercontent.com/MK316/APP4U/main/data/syntax
 
 @st.cache_data(show_spinner=False)
 def load_data(url: str) -> pd.DataFrame:
-    df = pd.read_csv(url, encoding="utf-8-sig")
-    # defensive cleaning
-    for col in ["YEAR", "KEYWORDS", "TEXT", "Filename"]:
-        if col in df.columns:
-            df[col] = df[col].astype(str)
-    return df
+    try:
+        return pd.read_csv(url, encoding="utf-8-sig")
+    except HTTPError as e:
+        # Shows useful info instead of Streamlit's redacted error
+        raise RuntimeError(f"HTTPError {e.code} when loading CSV:\n{url}") from e
+    except URLError as e:
+        raise RuntimeError(f"URLError when loading CSV:\n{url}\n{e.reason}") from e
+    except Exception as e:
+        raise RuntimeError(f"Failed to read CSV:\n{url}\n{e}") from e
 
 def search_years(df: pd.DataFrame, search_mode: str, query: str):
     query = (query or "").strip().lower()
@@ -72,7 +76,12 @@ def search_years(df: pd.DataFrame, search_mode: str, query: str):
     return deduped
 
 def render_search_tab(tab_name: str, data_url: str):
-    df = load_data(data_url)
+    try:
+        df = load_data(data_url)
+    except RuntimeError as e:
+        st.error(str(e))
+        st.stop()
+
 
     # Unique keys per tab (so session_state does not collide)
     key_prefix = tab_name.lower()
