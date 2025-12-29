@@ -1,6 +1,13 @@
 import streamlit as st
 import pandas as pd
 
+
+# ---------------------------
+# Page setup (MUST be first Streamlit call)
+# ---------------------------
+st.set_page_config(page_title="Teacher Certification Exam Search", layout="wide")
+st.title("TCE Search I")
+
 # Define tab navigation
 tab1, tab2 = st.tabs(["🌀 TCE Search: Phonology & Morphology", "🍎 Overview"])
 
