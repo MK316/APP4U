@@ -16,13 +16,13 @@ st.title("TCE Search")
 # ---------------------------
 DATASETS = {
     "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_syntax.csv",
-    "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_pragmatics.csv",
+    "Semantics": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_semantics.csv",
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_grammar.csv",
 }
 
 IMAGE_BASE_URLS = {
     "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/main/data/syntax/",
-    "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/main/data/pragmatics/",
+    "Semantics": "https://raw.githubusercontent.com/MK316/APP4U/main/data/semantics/",
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/data/grammar/",
 }
 
@@ -251,13 +251,13 @@ def render_search_tab(tab_name: str, data_url: str):
 # ---------------------------
 # UI
 # ---------------------------
-tab_syntax, tab_prag, tab_gram = st.tabs(["🚦 Syntax", "🚦 Pragmatics", "🚦 Grammar"])
+tab_syntax, tab_prag, tab_gram = st.tabs(["🚦 Syntax", "🚦 Semantics & Pragmatics", "🚦 Grammar"])
 
 with tab_syntax:
     render_search_tab("Syntax", DATASETS["Syntax"])
 
 with tab_prag:
-    render_search_tab("Pragmatics", DATASETS["Pragmatics"])
+    render_search_tab("Semantics", DATASETS["Semantics"])
 
 with tab_gram:
     render_search_tab("Grammar", DATASETS["Grammar"])
