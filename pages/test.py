@@ -11,7 +11,7 @@ st.set_page_config(page_title="TCE Search", layout="wide")
 # ---------------------------
 # Use the stable RAW pattern: .../main/... (avoid /refs/heads/ on Streamlit Cloud)
 DATASETS = {
-    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_syntax.csv",
+    "Syntax": "https://raw.githubusercontent.com/MK316/APP4U/refs/heads/main/data/TExam_syntax.csv",
     "Pragmatics": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_pragmatics.csv",
     "Grammar": "https://raw.githubusercontent.com/MK316/APP4U/main/pages/data/TExam_grammar.csv",
 }
