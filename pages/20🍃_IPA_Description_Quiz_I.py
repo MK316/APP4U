@@ -294,7 +294,9 @@ with tab3:
             new_pair()
             # Clear previous checkbox selections
             for option in diff_options:
-                st.session_state[f"tab3_cb_{option}"] = False
+                key = f"tab3_cb_{option}"
+                if key in st.session_state:
+                    del st.session_state[key]
             st.rerun()
 
     with col3:
