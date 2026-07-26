@@ -42,7 +42,7 @@ st.caption("If none is selected for both, no additional highlights appear.")
 selected_row = st.selectbox("Highlight Feature (row)", [""] + list(df.index))
 selected_col = st.selectbox("Highlight Consonant (column)", [""] + list(df.columns))
 
-st.info("📌 "Strident" vs. "Sibilant": Regarding the [strident] feature: /f, v/ are technically classified as [+strident]. However, in English, /f, v/ do not pattern like the other [+strident] consonants. For this reason, the term 'sibilants' is used as a cover term for the six [+strident, +coronal] sounds.")
+st.info("📌 'Strident' vs. 'Sibilant': Regarding the [strident] feature: /f, v/ are technically classified as [+strident]. However, in English, /f, v/ do not pattern like the other [+strident] consonants. For this reason, the term 'sibilants' is used as a cover term for the six [+strident, +coronal] sounds.")
 st.info("Note also that 'stridents' and 'sibilants', in English linguistics, can be used interchangeably in the exam, referring to the 6 sounds /s, z, ʃ, ʒ, tʃ, dʒ/.")
 # --- Styling Function ---
 def style_matrix(val, row, col):
