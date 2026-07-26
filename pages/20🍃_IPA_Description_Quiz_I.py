@@ -263,7 +263,13 @@ with tab3:
         unsafe_allow_html=True
     )
 
-    tab3_choice = st.multiselect("Select all differing features:", diff_options, key="tab3_choice")
+    st.markdown("**Select all differing features:**")
+
+    tab3_choice = []
+    for option in diff_options:
+        checked = st.checkbox(option, key=f"tab3_cb_{option}")
+        if checked:
+            tab3_choice.append(option)
 
     # Buttons
     col1, col2, col3 = st.columns([1, 1, 1])
@@ -286,6 +292,9 @@ with tab3:
     with col2:
         if st.button("Next", key="tab3_next_btn"):
             new_pair()
+            # Clear previous checkbox selections
+            for option in diff_options:
+                st.session_state[f"tab3_cb_{option}"] = False
             st.rerun()
 
     with col3:
