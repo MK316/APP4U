@@ -238,7 +238,7 @@ with tab3:
                 st.session_state.key_diffs = diffs
                 break
 
-    if "pair" not in st.session_state:
+    if "pair" not in st.session_state or "key_diffs" not in st.session_state:
         new_pair()
 
     c1, c2 = st.session_state.pair
