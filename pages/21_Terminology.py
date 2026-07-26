@@ -155,9 +155,12 @@ st.title("🃏 Phonetics & Phonology Flashcards")
 if st.session_state.stage == "setup":
     st.write("Read the description and example, tap the card to reveal the term, then grade yourself.")
     max_n = len(df)
-    n = st.slider("How many terms would you like to practice?", min_value=5, max_value=max_n, value=min(15, max_n), step=1)
+    n = st.number_input(
+        f"How many terms would you like to practice? (1–{max_n})",
+        min_value=1, max_value=max_n, value=min(15, max_n), step=1,
+    )
     if st.button("▶️ Start practice", type="primary"):
-        start_practice(n)
+        start_practice(int(n))
         st.rerun()
 
 # ---------------------------------------------------------------------------
