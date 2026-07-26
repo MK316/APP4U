@@ -118,7 +118,7 @@ with tab1:
 
 # ----------------- TAB 2 -----------------
 with tab2:
-    
+
     st.header("🌳 Identify the Correct IPA Symbol")
 
     display_score("tab2")
@@ -164,7 +164,6 @@ with tab2:
             desc = " ".join([part for part in desc_parts if part])
 
         # Style bracketed text gray
-        import re
         desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
         st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
 
@@ -172,9 +171,8 @@ with tab2:
         choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice_radio")
 
         # Buttons
-# Buttons
         col1, col2, col3 = st.columns([1, 1, 1])
-        
+
         with col1:
             if st.button("Check answer", key="tab2_check_btn"):
                 st.session_state.tab2_total += 1
@@ -184,26 +182,26 @@ with tab2:
                 else:
                     st.error("❌ Try again.")
 
-                        # 🎉 Trigger balloons if user reaches 20/20
+                # 🎉 Trigger balloons if user reaches 20/20
                 if st.session_state.tab2_score == 20 and st.session_state.tab2_total == 20:
                     st.balloons()
-        
+
         with col2:
             if st.button("Next", key="tab2_next_btn"):
                 new_question()
                 st.rerun()
-        
+
         with col3:
             if st.button("🔁 Reset Session", key="tab2_reset_btn"):
                 for key in list(st.session_state.keys()):
                     del st.session_state[key]
                 st.rerun()
-           
+
 
 
 # ----------------- TAB 3 -----------------
 with tab3:
-    st.header("🧩 Find the Key Feature Difference")
+    st.header("🧩 Find the Key Feature Difference(s)")
 
     display_score("tab3")
 
@@ -216,31 +214,41 @@ with tab3:
         "Manner"
     ]
 
-    def get_key_difference(c1, c2):
+    def get_key_differences(c1, c2):
+        """Return a list of ALL features that differ between c1 and c2."""
+        diffs = []
         if c1["voicing"] != c2["voicing"]:
-            return "Voicing"
-        elif c1["place"] != c2["place"]:
-            return "Place"
-        elif c1["oro_nasal"] != c2["oro_nasal"]:
-            return "Oro-nasal process (oral vs. nasal)"
-        elif c1["centrality"] != c2["centrality"]:
-            return "Centrality (central vs. lateral)"
-        elif c1["manner"] != c2["manner"]:
-            return "Manner"
-        return "None"
+            diffs.append("Voicing")
+        if c1["place"] != c2["place"]:
+            diffs.append("Place")
+        if c1["oro_nasal"] != c2["oro_nasal"]:
+            diffs.append("Oro-nasal process (oral vs. nasal)")
+        if c1["centrality"] != c2["centrality"]:
+            diffs.append("Centrality (central vs. lateral)")
+        if c1["manner"] != c2["manner"]:
+            diffs.append("Manner")
+        return diffs
 
-    if "pair" not in st.session_state:
+    def new_pair():
         while True:
             c1, c2 = random.sample(consonants, 2)
-            key_diff = get_key_difference(c1, c2)
-            if key_diff != "None":
+            diffs = get_key_differences(c1, c2)
+            if diffs:
                 st.session_state.pair = (c1, c2)
-                st.session_state.key_diff = key_diff
+                st.session_state.key_diffs = diffs
                 break
 
+    if "pair" not in st.session_state:
+        new_pair()
+
     c1, c2 = st.session_state.pair
-    st.markdown(f"### Which feature distinguishes the following two sounds?")
-    #   
+    n_diff = len(st.session_state.key_diffs)
+    feature_word = "feature" if n_diff == 1 else "features"
+
+    st.markdown(
+        f"### These two sounds differ in **{n_diff} {feature_word}**. Select all that apply:"
+    )
+
     st.markdown(
         f"""
         <div style='display: flex; justify-content: center; gap: 40px; margin-top: 1em; margin-bottom: 1em;'>
@@ -255,36 +263,31 @@ with tab3:
         unsafe_allow_html=True
     )
 
-
-    tab3_choice = st.radio("Choose one:", diff_options, key="tab3_choice")
+    tab3_choice = st.multiselect("Select all differing features:", diff_options, key="tab3_choice")
 
     # Buttons
     col1, col2, col3 = st.columns([1, 1, 1])
-    
+
     with col1:
         if st.button("Check answer", key="tab3_check_btn"):
             st.session_state.tab3_total += 1
-            if tab3_choice == st.session_state.key_diff:
+            if set(tab3_choice) == set(st.session_state.key_diffs):
                 st.session_state.tab3_score += 1
-                st.success("✅ Correct! The key difference is indeed: " + tab3_choice)
+                st.success(f"✅ Correct! The key difference(s): {', '.join(st.session_state.key_diffs)}")
             else:
-                st.error("❌ Incorrect. Try again.")
-                        # 🎉 Trigger balloons if user reaches 20/20
-            if st.session_state.tab2_score == 20 and st.session_state.tab2_total == 20:
+                st.error(
+                    f"❌ Incorrect. These sounds differ in {n_diff} {feature_word}. Try again."
+                )
+
+            # 🎉 Trigger balloons if user reaches 20/20
+            if st.session_state.tab3_score == 20 and st.session_state.tab3_total == 20:
                 st.balloons()
-    
+
     with col2:
         if st.button("Next", key="tab3_next_btn"):
-            # Get a new pair with one distinct feature
-            while True:
-                c1, c2 = random.sample(consonants, 2)
-                key_diff = get_key_difference(c1, c2)
-                if key_diff != "None":
-                    st.session_state.pair = (c1, c2)
-                    st.session_state.key_diff = key_diff
-                    break
+            new_pair()
             st.rerun()
-    
+
     with col3:
         if st.button("🔁 Reset Session", key="tab3_reset_btn"):
             for key in list(st.session_state.keys()):
