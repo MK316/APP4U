@@ -65,6 +65,13 @@ if st.button("Start Quiz"):
     st.session_state.round_id = st.session_state.get('round_id', 0) + 1
 
 if "current_symbol" in st.session_state:
+    if "round_id" not in st.session_state:
+        st.session_state.round_id = 0
+    if "attempts" not in st.session_state:
+        st.session_state.attempts = 0
+    if "correct_count" not in st.session_state:
+        st.session_state.correct_count = 0
+
     # --- Big boxed display of the target symbol ---
     st.markdown(
         f"""
