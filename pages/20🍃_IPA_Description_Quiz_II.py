@@ -124,7 +124,6 @@ if "current_symbol" in st.session_state:
             st.session_state.attempts += 1
             st.session_state.current_symbol, st.session_state.current_data = select_random_symbol()
             st.session_state.round_id += 1
-            st.rerun()
 
     # Show score when 'Continue' is pressed
     if continue_pressed:
