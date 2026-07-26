@@ -236,10 +236,13 @@ with tab3:
             if diffs:
                 st.session_state.pair = (c1, c2)
                 st.session_state.key_diffs = diffs
+                st.session_state.tab3_round = st.session_state.get("tab3_round", 0) + 1
                 break
 
     if "pair" not in st.session_state or "key_diffs" not in st.session_state:
         new_pair()
+    if "tab3_round" not in st.session_state:
+        st.session_state.tab3_round = 0
 
     c1, c2 = st.session_state.pair
     n_diff = len(st.session_state.key_diffs)
@@ -267,7 +270,7 @@ with tab3:
 
     tab3_choice = []
     for option in diff_options:
-        checked = st.checkbox(option, key=f"tab3_cb_{option}")
+        checked = st.checkbox(option, key=f"tab3_cb_{st.session_state.tab3_round}_{option}")
         if checked:
             tab3_choice.append(option)
 
@@ -292,11 +295,6 @@ with tab3:
     with col2:
         if st.button("Next", key="tab3_next_btn"):
             new_pair()
-            # Clear previous checkbox selections
-            for option in diff_options:
-                key = f"tab3_cb_{option}"
-                if key in st.session_state:
-                    del st.session_state[key]
             st.rerun()
 
     with col3:
