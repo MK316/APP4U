@@ -43,7 +43,7 @@ def validate_selections(ipa_symbol, user_voicing, user_place, user_manner, user_
                correct_data['Manner'] == user_manner and
                correct_data['Oro-nasal'] == user_oronasal and
                correct_data['Centrality'] == user_centrality)
-    
+
     return correct, correct_data
 
 # Main interface with Streamlit
@@ -58,23 +58,43 @@ if st.button("Start Quiz"):
     st.session_state.correct_count = 0
     st.session_state.attempts = 0
     st.session_state.current_symbol, st.session_state.current_data = select_random_symbol()
+    # NOTE: round_id is a counter that NEVER resets across the whole session.
+    # Using this (instead of `attempts`, which resets to 0 on every "Start Quiz")
+    # guarantees every question gets brand-new, never-before-used widget keys,
+    # so old radio selections from a previous playthrough can never leak back in.
+    st.session_state.round_id = st.session_state.get('round_id', 0) + 1
 
 if "current_symbol" in st.session_state:
-    st.write(f"IPA Symbol: {st.session_state.current_symbol}")
+    # --- Big boxed display of the target symbol ---
+    st.markdown(
+        f"""
+        <div style='display: flex; justify-content: center; margin: 1em 0;'>
+            <div style='padding: 0.4em 1.2em; background-color: #CCE5FF; border-radius: 10px;
+                        font-size: 3.2em; border: 2px solid #ccc;'>
+                / {st.session_state.current_symbol} /
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     st.markdown("📌 Note: Liquids and glides are approximants.")
     st.info("For the centrality of a sound, mark 'Not applicable' when the air goes through the nose.")
+
+    rid = st.session_state.round_id
+
     # Using columns to organize the options
     col1, col2, col3, col4, col5 = st.columns([1.7, 2.3, 2.2, 1.5, 2.3])
     with col1:
-        voicing = st.radio("Voicing", ['voiceless', 'voiced'], key=f"voicing_{st.session_state.attempts}")
+        voicing = st.radio("Voicing", ['voiceless', 'voiced'], key=f"voicing_{rid}", index=None)
     with col2:
-        place = st.radio("Place", ['bilabial', 'labio-dental', 'labio-velar', 'dental', 'alveolar', 'palato-alveolar', 'palatal', 'velar', 'glottal'], key=f"place_{st.session_state.attempts}")
+        place = st.radio("Place", ['bilabial', 'labio-dental', 'labio-velar', 'dental', 'alveolar', 'palato-alveolar', 'palatal', 'velar', 'glottal'], key=f"place_{rid}", index=None)
     with col3:
-        manner = st.radio("Manner", ['stop', 'fricative', 'affricate', 'approximant'], key=f"manner_{st.session_state.attempts}")
+        manner = st.radio("Manner", ['stop', 'fricative', 'affricate', 'approximant'], key=f"manner_{rid}", index=None)
     with col4:
-        oronasal = st.radio("Oro-nasal", ['(oral)', 'nasal'], key=f"oronasal_{st.session_state.attempts}")
+        oronasal = st.radio("Oro-nasal", ['(oral)', 'nasal'], key=f"oronasal_{rid}", index=None)
     with col5:
-        centrality = st.radio("Centrality", ['(central)', 'lateral', '(not applicable)'], key=f"centrality_{st.session_state.attempts}")
+        centrality = st.radio("Centrality", ['(central)', 'lateral', '(not applicable)'], key=f"centrality_{rid}", index=None)
 
     # Place buttons next to each other without any gap
     cols = st.columns([2, 3, 5])  # Adjust the width of the first two columns to bring buttons closer
@@ -85,14 +105,19 @@ if "current_symbol" in st.session_state:
 
     # Process the submission and update
     if submit_pressed:
-        correct, _ = validate_selections(st.session_state.current_symbol, voicing, place, manner, oronasal, centrality)
-        if correct:
-            st.success("Correct!")
-            st.session_state.correct_count += 1
+        if None in (voicing, place, manner, oronasal, centrality):
+            st.warning("모든 항목을 선택한 후 Submit을 눌러주세요.")
         else:
-            st.error("Incorrect!")
-        st.session_state.attempts += 1
-        st.session_state.current_symbol, st.session_state.current_data = select_random_symbol()
+            correct, _ = validate_selections(st.session_state.current_symbol, voicing, place, manner, oronasal, centrality)
+            if correct:
+                st.success("Correct!")
+                st.session_state.correct_count += 1
+            else:
+                st.error("Incorrect!")
+            st.session_state.attempts += 1
+            st.session_state.current_symbol, st.session_state.current_data = select_random_symbol()
+            st.session_state.round_id += 1
+            st.rerun()
 
     # Show score when 'Continue' is pressed
     if continue_pressed:
