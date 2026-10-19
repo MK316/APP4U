@@ -19,7 +19,8 @@ def load_module(name: str):
 
 
 # ---- 앱 목록 ----
-# url: 외부 사이트 주소 / app: 이 페이지 안에서 여는 앱 (assets/<app>.py 의 render())
+# url: 외부 사이트 주소 / app: 이 페이지 안에서 여는 앱 (주소 ?app=<app>)
+#   module: 불러올 assets/<module>.py (없으면 app 이름과 같음), kwargs: render()에 넘길 값
 # url과 app이 모두 None이면 'Coming Soon'으로 표시됩니다.
 APPS = [
     {
@@ -32,7 +33,14 @@ APPS = [
         "app": "voca_practice",
         "desc": "MD-33 quiz practice: read the part of speech and meanings, then choose the word.",
     },
-    {"title": "App 3", "url": None, "desc": "Coming Soon"},
+    {
+        "title": "CEFR Voca",
+        "app": "cefr_voca",
+        "module": "voca_practice",
+        "kwargs": {"csv_name": "cefr_vocab.csv", "use_drive": False,
+                   "subtitle": "CEFR vocabulary quiz (A1–C2): read the part of speech and meanings, then choose the word."},
+        "desc": "CEFR word list quiz: choose a level (A1–C2), then pick the word that matches the meaning.",
+    },
     {"title": "App 4", "url": None, "desc": "Coming Soon"},
 ]
 
@@ -40,8 +48,9 @@ APPS = [
 current = st.query_params.get("app")
 internal = {a["app"]: a for a in APPS if a.get("app")}
 if current in internal:
-    st.title(internal[current]["title"])
-    load_module(current).render()
+    app = internal[current]
+    st.title(app["title"])
+    load_module(app.get("module", current)).render(**app.get("kwargs", {}))
     st.stop()
 
 st.markdown(
