@@ -36,6 +36,8 @@ def _parse_csv(text: str) -> list:
     rows = []
     for r in reader:
         row = {c: (r.get(c) or "").strip() for c in COLUMNS}
+        if "CEFR" in reader.fieldnames:
+            row["CEFR"] = (r.get("CEFR") or "").strip()
         if row["Word"]:
             rows.append(row)
     return rows
@@ -57,16 +59,24 @@ def _load_drive() -> list:
     return _parse_csv(text)
 
 
-def render() -> None:
+def render(csv_name: str = "md33.csv", subtitle: str | None = None, use_drive: bool = True) -> None:
+    """csv_name: assets 폴더의 CSV 파일 이름. use_drive=True면 파일이 없을 때 구글 드라이브(MD-33)에서 받습니다.
+    CSV에 CEFR 컬럼이 있으면 화면에 Level 선택이 자동으로 나타납니다."""
+    local = ASSETS / csv_name
     try:
-        if LOCAL_CSV.exists():
-            rows = _load_local(str(LOCAL_CSV), LOCAL_CSV.stat().st_mtime)
-        else:
+        if local.exists():
+            rows = _load_local(str(local), local.stat().st_mtime)
+        elif use_drive:
             rows = _load_drive()
+        else:
+            raise FileNotFoundError(f"assets/{csv_name} not found")
     except Exception as e:
-        st.error(f"Could not load the MD-33 data: {e}")
+        st.error(f"Could not load the vocabulary data: {e}")
         return
-    html = HTML.replace(
+    html = HTML
+    if subtitle:
+        html = html.replace("MD-33 vocabulary quiz: read the part of speech and meanings, then choose the word.", subtitle)
+    html = html.replace(
         "/*__DATA__*/[]", json.dumps(rows, ensure_ascii=False).replace("</", "<\\/")
     )
     _embed(html, 900)
@@ -163,48 +173,72 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-const ROWS = DATA.map(r => ({ ...r, SID: Number(r.SID) })).filter(r => r.Word && !Number.isNaN(r.SID));
-const INITIALS = [...new Set(ROWS.map(r => String(r.Initial || r.Word[0]).trim().toUpperCase()))].sort();
-const ALL_WORDS = [...new Set(ROWS.map(r => r.Word.trim()))];
-const st = { setup: { initial: "ALL", from: null, to: null, count: 10 }, quiz: [], i: 0, answered: null, showWic: false, results: [], review: [], ri: 0 };
+// Rows without any meaning cannot be asked, so they are left out.
+const ROWS = DATA.map(r => ({ ...r, SID: Number(r.SID) })).filter(r => r.Word && !Number.isNaN(r.SID) && (r.WME || r.WMK));
+const ini = r => String(r.Initial || r.Word[0]).trim().toUpperCase();
+const posKey = r => String(r.POS || "").trim().split(/\s+/)[0].toLowerCase();
+const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
+const LEVELS = [...new Set(ROWS.map(r => r.CEFR).filter(Boolean))].sort((a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b));
+const st = { setup: { level: "ALL", initial: "ALL", from: null, to: null, count: 10 }, quiz: [], i: 0, answered: null, showWic: false, results: [], review: [], ri: 0 };
 
+const levelOk = r => st.setup.level === "ALL" || r.CEFR === st.setup.level;
+const initials = () => [...new Set(ROWS.filter(levelOk).map(ini))].sort();
 function pool() {
   const s = st.setup;
-  return ROWS.filter(r => (s.initial === "ALL" || String(r.Initial || r.Word[0]).trim().toUpperCase() === s.initial)
+  return ROWS.filter(r => levelOk(r) && (s.initial === "ALL" || ini(r) === s.initial)
     && (s.from == null || r.SID >= s.from) && (s.to == null || r.SID <= s.to))
     .sort((a, b) => a.SID - b.SID);
 }
 function sidBounds(initial) {
-  const rows = ROWS.filter(r => initial === "ALL" || String(r.Initial || r.Word[0]).trim().toUpperCase() === initial);
-  const sids = rows.map(r => r.SID);
+  const sids = ROWS.filter(r => levelOk(r) && (initial === "ALL" || ini(r) === initial)).map(r => r.SID);
   return sids.length ? [Math.min(...sids), Math.max(...sids)] : [0, 0];
+}
+// Wrong options: prefer words with the same part of speech (and level), so the answer cannot be guessed from grammar.
+function distractors(row) {
+  const ans = row.Word.trim().toLowerCase();
+  const pick = (rows, n, taken) => shuffle([...new Set(rows.map(r => r.Word.trim()))]
+    .filter(w => w.toLowerCase() !== ans && !taken.includes(w))).slice(0, n);
+  const sameLevel = ROWS.filter(r => !row.CEFR || r.CEFR === row.CEFR);
+  let out = pick(sameLevel.filter(r => posKey(r) === posKey(row)), 4, []);
+  if (out.length < 4) out = out.concat(pick(ROWS.filter(r => posKey(r) === posKey(row)), 4 - out.length, out));
+  if (out.length < 4) out = out.concat(pick(ROWS, 4 - out.length, out));
+  return out;
 }
 
 // Hide the target word (and simple inflections) in the example until the question is answered.
 function maskWord(sentence, word) {
-  let stem = word.trim();
-  if (stem.length > 4 && /[ey]$/i.test(stem)) stem = stem.slice(0, -1);
-  const rx = new RegExp(`\\b${stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\w*`, "gi");
-  return esc(sentence).replace(rx, '<span class="blank">&nbsp;</span>');
+  let out = esc(sentence);
+  // "airplane/aeroplane" -> mask each spelling
+  for (const form of word.split("/").map(w => w.trim()).filter(w => w.length > 1).sort((a, b) => b.length - a.length)) {
+    let stem = form;
+    if (stem.length > 4 && /[ey]$/i.test(stem)) stem = stem.slice(0, -1);
+    const lead = /^\w/.test(stem) ? "\\b" : "";
+    const rx = new RegExp(`${lead}${esc(stem).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\w*`, "gi");
+    out = out.replace(rx, '<span class="blank">&nbsp;</span>');
+  }
+  return out;
 }
 
 // ---------- Setup ----------
 function renderSetup() {
   if (!ROWS.length) { $("stage").innerHTML = `<p class="error">No vocabulary data was loaded. Check the CSV file.</p>`; return; }
   const s = st.setup;
+  if (s.initial !== "ALL" && !initials().includes(s.initial)) s.initial = "ALL";
   const [lo, hi] = sidBounds(s.initial);
   if (s.from == null || s.from < lo || s.from > hi) s.from = lo;
   if (s.to == null || s.to > hi || s.to < lo) s.to = hi;
   const n = pool().length;
   $("stage").innerHTML = `
     <div class="grid">
-      <div><label for="ini">Alphabet</label><select id="ini"><option value="ALL">All letters</option>${INITIALS.map(x => `<option ${x === s.initial ? "selected" : ""}>${x}</option>`).join("")}</select></div>
+      ${LEVELS.length ? `<div><label for="lvl">CEFR level</label><select id="lvl"><option value="ALL">All levels</option>${LEVELS.map(x => `<option ${x === s.level ? "selected" : ""}>${x}</option>`).join("")}</select></div>` : ""}
+      <div><label for="ini">Alphabet</label><select id="ini"><option value="ALL">All letters</option>${initials().map(x => `<option ${x === s.initial ? "selected" : ""}>${x}</option>`).join("")}</select></div>
       <div><label for="from">SID from</label><input type="number" id="from" min="${lo}" max="${hi}" value="${s.from}"></div>
       <div><label for="to">SID to</label><input type="number" id="to" min="${lo}" max="${hi}" value="${s.to}"></div>
       <div><label for="cnt">Number of questions</label><select id="cnt">${[5, 10, 20, 30, 50, 0].map(c => `<option value="${c}" ${c === s.count ? "selected" : ""}>${c || "All"}</option>`).join("")}</select></div>
     </div>
-    <p class="hint">SID range for ${s.initial === "ALL" ? "all letters" : "letter " + s.initial}: ${lo}–${hi}. <strong>${n}</strong> word(s) in the selected range.</p>
+    <p class="hint">SID range for ${s.level === "ALL" ? "" : s.level + ", "}${s.initial === "ALL" ? "all letters" : "letter " + s.initial}: ${lo}–${hi}. <strong>${n}</strong> word(s) in the selected range.</p>
     <div class="row"><button class="btn primary" id="start" ${n ? "" : "disabled"}>Start quiz</button></div>`;
+  if (LEVELS.length) $("lvl").onchange = e => { s.level = e.target.value; s.from = s.to = null; renderSetup(); };
   $("ini").onchange = e => { s.initial = e.target.value; s.from = s.to = null; renderSetup(); };
   $("from").onchange = e => { s.from = Number(e.target.value); renderSetup(); };
   $("to").onchange = e => { s.to = Number(e.target.value); renderSetup(); };
@@ -217,7 +251,7 @@ function startQuiz() {
   const p = shuffle(pool());
   const items = st.setup.count ? p.slice(0, st.setup.count) : p;
   st.quiz = items.map(row => {
-    const wrong = shuffle(ALL_WORDS.filter(w => w.toLowerCase() !== row.Word.trim().toLowerCase())).slice(0, 4);
+    const wrong = distractors(row);
     return { row, options: shuffle([row.Word.trim(), ...wrong]) };
   });
   st.i = 0; st.results = []; st.answered = null; st.showWic = false;
@@ -287,7 +321,7 @@ function renderCard() {
   const r = st.review[st.ri];
   const field = (label, val, cls = "") => val ? `<dt>${label}</dt><dd class="${cls}">${esc(val)}</dd>` : "";
   $("stage").innerHTML = `
-    <div class="row" style="margin-top:0;margin-bottom:10px"><strong>Missed word ${st.ri + 1} of ${st.review.length}</strong><span class="right">${esc(r.Initial)} · SID ${esc(r.SID)}</span></div>
+    <div class="row" style="margin-top:0;margin-bottom:10px"><strong>Missed word ${st.ri + 1} of ${st.review.length}</strong><span class="right">${r.CEFR ? esc(r.CEFR) + " · " : ""}${esc(r.Initial)} · SID ${esc(r.SID)}</span></div>
     <div class="card-word">${esc(r.Word)}</div>
     <div class="card-meta">${esc(r.POS)}</div>
     <dl class="dict">
